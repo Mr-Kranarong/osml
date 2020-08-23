@@ -34,7 +34,7 @@
                     <nav class="navbar navbar-expand-xl navbar-light bg-light">
                         <a class="navbar-brand" href="{{ url('/') }}">
                             <i class="fas fa-3x fa-tachometer-alt tm-site-icon"></i>
-                            <h1 class="tm-site-title mb-0">{{ config('app.name', 'Laravel') }}</h1>
+                            <h1 class="tm-site-title mb-0">{{ Config::get('app.name') }}</h1>
                         </a>
                         <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -131,7 +131,7 @@
                 @yield('content')
             </div>
             <footer class="row tm-mt-small">
-                <div class="col-12 font-weight-light">
+                <div class="col-12 font-weight-light text-center">
                     <p class="d-inline-block tm-bg-black text-white py-2 px-4">
                         Copyright &copy; {{ \Carbon\Carbon::now()->year }} {{ Config::get('app.name') }}
                     </p>
