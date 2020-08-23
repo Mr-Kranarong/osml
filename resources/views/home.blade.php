@@ -14,7 +14,15 @@
                         </div>
                     @endif
 
+                    @auth
                     {{ __('You are logged in!') }}
+                    @if (Auth::user()->hasAccess())
+                        And You're fucking admin
+                    @endif
+                    @else
+                    Why not login bro?
+                    @endauth
+                    
                 </div>
             </div>
         </div>

@@ -36,4 +36,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    const ADMIN_ACCESS = 1;
+    const MEMBER_ACCESS = 0;
+
+    public function hasAccess(){
+        return $this->access === self::ADMIN_ACCESS;
+    }
 }
