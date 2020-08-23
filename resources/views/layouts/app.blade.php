@@ -17,13 +17,13 @@
     -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
     <!-- https://fonts.google.com/specimen/Open+Sans -->
-    <link rel="stylesheet" href="css/fontawesome.min.css">
+<link rel="stylesheet" href="{{ url('css/fontawesome.min.css') }}">
     <!-- https://fontawesome.com/ -->
-    <link rel="stylesheet" href="css/fullcalendar.min.css">
+    <link rel="stylesheet" href="{{ url('css/fullcalendar.min.css') }}">
     <!-- https://fullcalendar.io/ -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url('css/bootstrap.min.css') }}">
     <!-- https://getbootstrap.com/ -->
-    <link rel="stylesheet" href="css/tooplate.css">
+    <link rel="stylesheet" href="{{ url('css/tooplate.css') }}">
 </head>
 
 <body id="reportsPage">
@@ -44,7 +44,7 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mx-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="#">Home
+                                <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="{{route('home')}}">Home
                                         <span class="sr-only">(current)</span>
                                     </a>
                                 </li>
@@ -139,18 +139,18 @@
             </footer>
         </div>
     </div>
-    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="{{ url('js/jquery-3.3.1.min.js') }}"></script>
     <!-- https://jquery.com/download/ -->
-    <script src="js/moment.min.js"></script>
+    <script src="{{ url('js/moment.min.js') }}"></script>
     <!-- https://momentjs.com/ -->
-    <script src="js/utils.js"></script>
-    <script src="js/Chart.min.js"></script>
+    <script src="{{ url('js/utils.js') }}"></script>
+    <script src="{{ url('js/Chart.min.js') }}"></script>
     <!-- http://www.chartjs.org/docs/latest/ -->
-    <script src="js/fullcalendar.min.js"></script>
+    <script src="{{ url('js/fullcalendar.min.js') }}"></script>
     <!-- https://fullcalendar.io/ -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="{{ url('js/bootstrap.min.js') }}"></script>
     <!-- https://getbootstrap.com/ -->
-    <script src="js/tooplate-scripts.js"></script>
+    <script src="{{ url('js/tooplate-scripts.js') }}"></script>
     <script>
         let ctxLine,
             ctxBar,
