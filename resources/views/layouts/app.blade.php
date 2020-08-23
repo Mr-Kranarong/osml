@@ -63,27 +63,27 @@
                                         </div>
                                     </li>
                                     <li class="nav-item {{ Request::is('user*') ? 'active' : '' }}">
-                                        <a class="nav-link" href="products.html">User Management</a>
+                                        <a class="nav-link" href="#">User Management</a>
                                     </li>
                                     @endif
                                 @endauth
                                 
                                 @auth
                                 <li class="nav-item {{ Request::is('orders_reviews*') ? 'active' : '' }}">
-                                    <a class="nav-link" href="accounts.html">Orders & Reviews</a>
+                                    <a class="nav-link" href="#">Orders & Reviews</a>
                                 </li>
                                     @if (!Auth::user()->hasAccess())
                                     <li class="nav-item {{ Request::is('cart*') ? 'active' : '' }}">
-                                        <a class="nav-link" href="accounts.html">Cart</a>
+                                        <a class="nav-link" href="#">Cart</a>
                                     </li>
                                     @endif
 
                                     @if (Auth::user()->hasAccess())
                                 <li class="nav-item {{ Request::is('statistics*') ? 'active' : '' }}">
-                                    <a class="nav-link" href="accounts.html">Statistics</a>
+                                    <a class="nav-link" href="#">Statistics</a>
                                 </li>
                                 <li class="nav-item {{ Request::is('settings*') ? 'active' : '' }}">
-                                    <a class="nav-link" href="accounts.html">Settings</a>
+                                    <a class="nav-link" href="#">Settings</a>
                                 </li>
                                 @endif
                                 @endauth
