@@ -16,5 +16,19 @@ return [
     'Logout' => 'Logout',
     'EditProfile' => 'Edit Profile',
     'Language' => 'Language',
-    'Address' => 'Address'
+    'Address' => 'Address',
+    'Email' => 'E-Mail Address',
+    'Password' => 'Password',
+    'Remember' => 'Remember Me',
+    'Forgot' => 'Forgot Your Password?',
+    'ConfirmPassword' => 'Confirm Password',
+    'Name' => 'Full Name',
+    'Phone' => 'Phone Number',
+    'VerifyYourEmail' => 'Verify Your Email Address',
+    'VerifyLinkSent' => 'A fresh verification link has been sent to your email address.',
+    'CheckYourMailForLink' => 'Before proceeding, please check your email for a verification link.',
+    'IfYouDidNotGetEmail' => 'If you did not receive the email',
+    'ClickToRequestAnother' => 'click here to request another',
+    'ResetPassword' => 'Reset Password',
+    'SendPasswordResetLink' => 'Send Password Reset Link'
 ];
