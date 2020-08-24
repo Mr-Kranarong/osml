@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -30,6 +32,11 @@ class HomeController extends Controller
     {
         App::setLocale($locale);
         session()->put('locale', $locale);
+
+        if(Auth::check()){
+            Auth::user()->updateLanguage($locale);
+        }
+
         return redirect()->back();
     }
 }

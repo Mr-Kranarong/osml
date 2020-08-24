@@ -43,4 +43,12 @@ class User extends Authenticatable
     public function hasAccess(){
         return $this->access === self::ADMIN_ACCESS;
     }
+
+    public function preferLanguage(){
+        return $this->language;
+    }
+    public function updateLanguage($locale){
+        $this->language = $locale;
+        $this->save();
+    }
 }

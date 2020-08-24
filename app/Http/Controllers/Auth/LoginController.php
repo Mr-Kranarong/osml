@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -18,7 +20,7 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
-
+    
     use AuthenticatesUsers;
 
     /**
@@ -39,6 +41,8 @@ class LoginController extends Controller
     }
 
     protected function redirectTo(){
+        App::setlocale(Auth::user()->preferLanguage());
+        session()->put('locale', Auth::user()->preferLanguage());
         return '/';
     }
 }

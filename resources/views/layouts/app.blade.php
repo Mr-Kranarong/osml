@@ -17,7 +17,7 @@
     -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
     <!-- https://fonts.google.com/specimen/Open+Sans -->
-<link rel="stylesheet" href="{{ url('css/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url('css/fontawesome.min.css') }}">
     <!-- https://fontawesome.com/ -->
     <link rel="stylesheet" href="{{ url('css/fullcalendar.min.css') }}">
     <!-- https://fullcalendar.io/ -->
@@ -36,7 +36,8 @@
                             <i class="fas fa-3x fa-tachometer-alt tm-site-icon"></i>
                             <h1 class="tm-site-title mb-0">{{ Config::get('app.name') }}</h1>
                         </a>
-                        <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
@@ -44,83 +45,105 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mx-auto">
                                 <li class="nav-item">
-                                <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="{{route('home')}}">Home
+                                    <a class="nav-link {{ Request::is('/') ? 'active' : '' }}"
+                                        href="{{ route('home') }}">{{ __('text.Home') }}
                                         <span class="sr-only">(current)</span>
                                     </a>
                                 </li>
 
                                 @auth
-                                    @if (Auth::user()->hasAccess())
-                                    <li class="nav-item dropdown {{ Request::is('product*') || Request::is('promotion*') || Request::is('coupon*') ? 'active' : '' }}">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            Store Function
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item {{ Request::is('product*') ? 'active' : '' }}" href="#">Product Management</a>
-                                            <a class="dropdown-item {{ Request::is('promotion*') ? 'active' : '' }}" href="#">Promotion Pairing</a>
-                                            <a class="dropdown-item {{ Request::is('coupon*') ? 'active' : '' }}" href="#">Coupon</a>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item {{ Request::is('user*') ? 'active' : '' }}">
-                                        <a class="nav-link" href="#">User Management</a>
-                                    </li>
+                                    @if(Auth::user()->hasAccess())
+                                        <li
+                                            class="nav-item dropdown {{ Request::is('product*') || Request::is('promotion*') || Request::is('coupon*') ? 'active' : '' }}">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                                                role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                {{ __('text.StoreFunction') }}
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item {{ Request::is('product*') ? 'active' : '' }}"
+                                                    href="#">{{ __('text.ProductManagement') }}</a>
+                                                <a class="dropdown-item {{ Request::is('promotion*') ? 'active' : '' }}"
+                                                    href="#">{{ __('text.PromotionPairing') }}</a>
+                                                <a class="dropdown-item {{ Request::is('coupon*') ? 'active' : '' }}"
+                                                    href="#">{{ __('text.Coupon') }}</a>
+                                            </div>
+                                        </li>
+                                        <li
+                                            class="nav-item {{ Request::is('user*') ? 'active' : '' }}">
+                                            <a class="nav-link"
+                                                href="#">{{ __('text.UserManagement') }}</a>
+                                        </li>
                                     @endif
                                 @endauth
-                                
+
                                 @auth
-                                <li class="nav-item {{ Request::is('orders_reviews*') ? 'active' : '' }}">
-                                    <a class="nav-link" href="#">Orders & Reviews</a>
-                                </li>
-                                    @if (!Auth::user()->hasAccess())
-                                    <li class="nav-item {{ Request::is('cart*') ? 'active' : '' }}">
-                                        <a class="nav-link" href="#">Cart</a>
+                                    <li
+                                        class="nav-item {{ Request::is('orders_reviews*') ? 'active' : '' }}">
+                                        <a class="nav-link"
+                                            href="#">{{ __('text.OrdersReviews') }}</a>
                                     </li>
+                                    @if(!Auth::user()->hasAccess())
+                                        <li
+                                            class="nav-item {{ Request::is('cart*') ? 'active' : '' }}">
+                                            <a class="nav-link" href="#">{{ __('text.Cart') }}</a>
+                                        </li>
                                     @endif
 
-                                    @if (Auth::user()->hasAccess())
-                                <li class="nav-item {{ Request::is('statistics*') ? 'active' : '' }}">
-                                    <a class="nav-link" href="#">Statistics</a>
-                                </li>
-                                <li class="nav-item {{ Request::is('settings*') ? 'active' : '' }}">
-                                    <a class="nav-link" href="#">Settings</a>
-                                </li>
-                                @endif
+                                    @if(Auth::user()->hasAccess())
+                                        <li
+                                            class="nav-item {{ Request::is('statistics*') ? 'active' : '' }}">
+                                            <a class="nav-link"
+                                                href="#">{{ __('text.Statistics') }}</a>
+                                        </li>
+                                        <li
+                                            class="nav-item {{ Request::is('settings*') ? 'active' : '' }}">
+                                            <a class="nav-link" href="#">{{ __('text.Settings') }}</a>
+                                        </li>
+                                    @endif
                                 @endauth
                             </ul>
                             <ul class="navbar-nav ml-auto">
                                 @guest
-                                <li class="nav-item dropdown  {{ Request::is('login*') || Request::is('register*') ? 'active' : '' }}">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        Sign-in
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item {{ Request::is('login*') ? 'active' : '' }}" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            @if (Route::has('register'))
-                                <a class="dropdown-item {{ Request::is('register*') ? 'active' : '' }}" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            @endif
-                        </div>
-                    </li>
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+                                    <li
+                                        class="nav-item dropdown  {{ Request::is('login*') || Request::is('register*') ? 'active' : '' }}">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {{ __('text.Signin') }}
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item {{ Request::is('login*') ? 'active' : '' }}"
+                                                href="{{ route('login') }}">{{ __('text.Login') }}</a>
+                                            @if(Route::has('register'))
+                                                <a class="dropdown-item {{ Request::is('register*') ? 'active' : '' }}"
+                                                    href="{{ route('register') }}">{{ __('text.Register') }}</a>
+                                            @endif
+                                        </div>
+                                    </li>
+                                @else
+                                    <li class="nav-item dropdown">
+                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                            {{ Auth::user()->name }} <span class="caret"></span>
+                                        </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item {{ Request::is('profile*') ? 'active' : '' }}"
+                                                href="#">{{ __('text.EditProfile') }}</a>
+
+                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                                                {{ __('text.Logout') }}
+                                            </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
+                                            <form id="logout-form" action="{{ route('logout') }}"
+                                                method="POST" style="display: none;">
+                                                @csrf
+                                            </form>
+                                        </div>
+                                    </li>
+                                @endguest
                             </ul>
                         </div>
                     </nav>
@@ -130,11 +153,22 @@
             <div class="row tm-content-row tm-mt-big">
                 @yield('content')
             </div>
-            <footer class="row tm-mt-small">
-                <div class="col-12 font-weight-light text-center">
-                    <p class="d-inline-block tm-bg-black text-white py-2 px-4">
-                        Copyright &copy; {{ \Carbon\Carbon::now()->year }} {{ Config::get('app.name') }}
-                    </p>
+            <footer class="row tm-mt-small mt-5">
+                <div class="col-12 font-weight-light">
+                    <div class="row tm-bg-black">
+                        <p class="d-inline-block text-white py-2 px-4 pr-5 col-6">
+                            {{ __('text.Address') }} <br>
+                            123/15 Something road, Basmic ASD, sdadp aldw adwad,a wddwalk awd, 1231415 <br>
+                            Tel. 05618508, Email shite.store@toilet.shop
+                        </p>
+                        <p class="d-inline-block text-white py-2 px-4 col-6 pl-5 my-auto text-right">
+                            {{ __('text.Language') }} <a
+                                href="{{ url('lang/en') }}">EN</a> | <a
+                                href="{{ url('lang/th') }}">TH</a> <br>
+                            Copyright &copy; {{ \Carbon\Carbon::now()->year }}
+                            {{ Config::get('app.name') }} <br>
+                        </p>
+                    </div>
                 </div>
             </footer>
         </div>
@@ -178,6 +212,8 @@
                 reloadPage();
             });
         })
+
     </script>
 </body>
+
 </html>
