@@ -5,7 +5,7 @@ return [
     'StoreFunction' => 'ฟังชั่นร้านค้า',
     'ProductManagement' => 'จัดการสินค้า',
     'Statistics' => 'สถิติ',
-    'UserManagement' => 'จัดการผู้ใช้',
+    'UserManagement' => 'จัดการบัญชีผู้ใช้',
     'PromotionPairing' => 'จับคู่โปรโมชั่น',
     'Coupon' => 'คูปอน',
     'OrdersReviews' => 'คำสั่งซื้อและคำวิจารณ์',
@@ -31,5 +31,10 @@ return [
     'IfYouDidNotGetEmail' => 'หากคุณไม่ได้รับอีเมล',
     'ClickToRequestAnother' => 'คลิกที่นี่เพื่อขอลิ้งค์สำหรับการยืนยันอีกครั้ง',
     'ResetPassword' => 'รีเซ็ตรหัสผ่าน',
-    'SendPasswordResetLink' => 'ส่งลิ้งค์สำหรับรีเซ็ตรหัสผ่าน'
+    'SendPasswordResetLink' => 'ส่งลิ้งค์สำหรับรีเซ็ตรหัสผ่าน',
+    'TotalProduct' => 'จำนวนสินค้าทั้งหมด',
+    'SearchProduct' => 'ค้นหาสินค้า',
+    'ProductName' => 'ชื่อสินค้า',
+    'InStocks' => 'สินค้าที่อยู่ในคลัง',
+    'PriceEach' => 'ราคาต่อหน่วย'
 ];

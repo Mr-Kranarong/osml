@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dashboard Admin Template by Tooplate.com</title>
+    <title>Dashboard Admin</title>
     <!--
 
     Template 2108 Dashboard
@@ -54,25 +54,22 @@
                                 @auth
                                     @if(Auth::user()->hasAccess())
                                         <li
-                                            class="nav-item dropdown {{ Request::is('product*') || Request::is('promotion*') || Request::is('coupon*') ? 'active' : '' }}">
+                                            class="nav-item dropdown {{ Request::is('product*') || Request::is('promotion*') || Request::is('coupon*') || Request::is('user*') ? 'active' : '' }}">
                                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                                 role="button" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 {{ __('text.StoreFunction') }}
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item {{ Request::is('user*') ? 'active' : '' }}"
+                                            href="#">{{ __('text.UserManagement') }}</a>
                                                 <a class="dropdown-item {{ Request::is('product*') ? 'active' : '' }}"
-                                                    href="#">{{ __('text.ProductManagement') }}</a>
+                                            href="{{route('product')}}">{{ __('text.ProductManagement') }}</a>
                                                 <a class="dropdown-item {{ Request::is('promotion*') ? 'active' : '' }}"
                                                     href="#">{{ __('text.PromotionPairing') }}</a>
                                                 <a class="dropdown-item {{ Request::is('coupon*') ? 'active' : '' }}"
                                                     href="#">{{ __('text.Coupon') }}</a>
                                             </div>
-                                        </li>
-                                        <li
-                                            class="nav-item {{ Request::is('user*') ? 'active' : '' }}">
-                                            <a class="nav-link"
-                                                href="#">{{ __('text.UserManagement') }}</a>
                                         </li>
                                     @endif
                                 @endauth
@@ -156,12 +153,12 @@
             <footer class="row tm-mt-small mt-5">
                 <div class="col-12 font-weight-light">
                     <div class="row tm-bg-black">
-                        <p class="d-inline-block text-white py-2 px-4 pr-5 col-6">
+                        <p class="d-inline-block text-white py-2 px-4 pr-5 col-md-6 col-xs-12">
                             {{ __('text.Address') }} <br>
                             123/15 Something road, Basmic ASD, sdadp aldw adwad,a wddwalk awd, 1231415 <br>
                             Tel. 05618508, Email shite.store@toilet.shop
                         </p>
-                        <p class="d-inline-block text-white py-2 px-4 col-6 pl-5 my-auto text-right">
+                        <p class="d-inline-block text-white py-2 px-4 col-md-6 col-xs-12 pl-5 my-auto text-right">
                             {{ __('text.Language') }} <a
                                 href="{{ url('lang/en') }}">EN</a> | <a
                                 href="{{ url('lang/th') }}">TH</a> <br>
@@ -214,6 +211,7 @@
         })
 
     </script>
+    @yield('script')
 </body>
 
 </html>

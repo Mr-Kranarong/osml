@@ -14,10 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
-Route::get('/home', 'HomeController@index');
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('lang/{locale}', 'HomeController@lang');
+
+Route::middleware(['admin'])->group(function(){
+    Route::post('/product', 'ProductController@search');
+    Route::get('/product', 'ProductController@index')->name('product');
+});
 
 //Route for normal user
 // Route::group(['middleware' => ['auth']], function () {

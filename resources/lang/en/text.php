@@ -30,5 +30,10 @@ return [
     'IfYouDidNotGetEmail' => 'If you did not receive the email',
     'ClickToRequestAnother' => 'click here to request another',
     'ResetPassword' => 'Reset Password',
-    'SendPasswordResetLink' => 'Send Password Reset Link'
+    'SendPasswordResetLink' => 'Send Password Reset Link',
+    'TotalProduct' => 'Total Product',
+    'SearchProduct' => 'Search Product',
+    'ProductName' => 'Product Name',
+    'InStocks' => 'In Stocks',
+    'PriceEach' => 'Price/EA'
 ];

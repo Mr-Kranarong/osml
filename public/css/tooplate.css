@@ -15,6 +15,7 @@ COLOR CODES
 
 html {
   font-size: 17px;
+  transition: all 0.5s;
 }
 
 body {
@@ -258,10 +259,10 @@ label {
   text-align: right;
 }
 
-.table td,
+/* .table td,
 .table th {
   padding: 20px 24px;
-}
+} */
 
 .table-hover tbody tr:hover {
   background-color: white;
@@ -345,8 +346,8 @@ input[type="checkbox"] {
   box-sizing: border-box;
   position: relative;
   box-sizing: content-box;
-  width: 24px;
-  height: 24px;
+  width: 15px;
+  height: 15px;
   transition: all 0.1s linear;
 }
 input[type="checkbox"]:checked {
