@@ -13,7 +13,7 @@
                         <form action="/product" method="POST">
                             @csrf
                             <div class="input-group input-group-sm">
-                            <input name="SearchProduct" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7 ml-auto" id="SearchProduct" placeholder="{{__('text.SearchProduct')}}" aria-describedby="SearchButton" value="{{ $query ?? '' }}" required>
+                            <input name="SearchProduct" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7 ml-auto" id="SearchProduct" placeholder="{{__('text.SearchProduct')}}" aria-describedby="SearchButton" value="{{ $query ?? '' }}">
                                 <div class="input-group-append" id="SearchButton">
                                     <button type="submit" class="btn btn-outline-secondary"><i class="fa fa-search" aria-hidden="true"></i></button></div>
                             </div>

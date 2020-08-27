@@ -21,6 +21,9 @@ Route::get('lang/{locale}', 'HomeController@lang');
 Route::middleware(['admin'])->group(function(){
     Route::post('/product', 'ProductController@search');
     Route::get('/product', 'ProductController@index')->name('product');
+
+    Route::post('/user', 'UserController@search');
+    Route::get('/user', 'UserController@index')->name('user');
 });
 
 //Route for normal user

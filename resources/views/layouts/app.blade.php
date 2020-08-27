@@ -62,7 +62,7 @@
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                                 <a class="dropdown-item {{ Request::is('user*') ? 'active' : '' }}"
-                                            href="#">{{ __('text.UserManagement') }}</a>
+                                            href="{{route('user')}}">{{ __('text.UserManagement') }}</a>
                                                 <a class="dropdown-item {{ Request::is('product*') ? 'active' : '' }}"
                                             href="{{route('product')}}">{{ __('text.ProductManagement') }}</a>
                                                 <a class="dropdown-item {{ Request::is('promotion*') ? 'active' : '' }}"

@@ -36,5 +36,6 @@ return [
     'SearchProduct' => 'ค้นหาสินค้า',
     'ProductName' => 'ชื่อสินค้า',
     'InStocks' => 'สินค้าที่อยู่ในคลัง',
-    'PriceEach' => 'ราคาต่อหน่วย'
+    'PriceEach' => 'ราคาต่อหน่วย',
+    'SearchUser' => 'ค้นหาผู้ใช้'
 ];

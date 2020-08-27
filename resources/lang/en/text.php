@@ -35,5 +35,6 @@ return [
     'SearchProduct' => 'Search Product',
     'ProductName' => 'Product Name',
     'InStocks' => 'In Stocks',
-    'PriceEach' => 'Price/EA'
+    'PriceEach' => 'Price/EA',
+    'SearchUser' => 'Search User'
 ];
