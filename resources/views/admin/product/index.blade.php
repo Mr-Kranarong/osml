@@ -10,7 +10,7 @@
                         {{__('text.TotalProduct')}} ({{$total}})
                     </div>
                     <div class="col-7">
-                        <form action="/product" method="POST">
+                        <form action="{{route('product.search')}}" method="POST">
                             @csrf
                             <div class="input-group input-group-sm">
                             <input name="SearchProduct" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7 ml-auto" id="SearchProduct" placeholder="{{__('text.SearchProduct')}}" aria-describedby="SearchButton" value="{{ $query ?? '' }}">

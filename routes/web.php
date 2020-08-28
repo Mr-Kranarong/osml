@@ -19,11 +19,14 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('lang/{locale}', 'HomeController@lang');
 
 Route::middleware(['admin'])->group(function(){
-    Route::post('/product', 'ProductController@search');
-    Route::get('/product', 'ProductController@index')->name('product');
+    Route::post('/product', 'ProductController@search')->name('product.search');
+    Route::get('/product', 'ProductController@index')->name('product.index');
 
-    Route::post('/user', 'UserController@search');
-    Route::get('/user', 'UserController@index')->name('user');
+    Route::post('/user', 'UserController@search')->name('user.search');
+    Route::delete('/user/{user}', 'UserController@delete')->name('user.delete');
+    Route::put('/user/{user}', 'UserController@update')->name('user.update');
+    Route::get('/user/{user}/edit','UserController@edit')->name('user.edit');
+    Route::get('/user', 'UserController@index')->name('user.index');
 });
 
 //Route for normal user

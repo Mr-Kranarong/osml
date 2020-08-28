@@ -31,7 +31,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <nav class="navbar navbar-expand-xl navbar-light bg-light">
+                    <nav class="navbar navbar-expand-xl navbar-light bg-light rounded">
                         <a class="navbar-brand" href="{{ url('/') }}">
                             <i class="fas fa-3x fa-tachometer-alt tm-site-icon"></i>
                             <h1 class="tm-site-title mb-0">{{ Config::get('app.name') }}</h1>
@@ -62,9 +62,9 @@
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                                 <a class="dropdown-item {{ Request::is('user*') ? 'active' : '' }}"
-                                            href="{{route('user')}}">{{ __('text.UserManagement') }}</a>
+                                            href="{{route('user.index')}}">{{ __('text.UserManagement') }}</a>
                                                 <a class="dropdown-item {{ Request::is('product*') ? 'active' : '' }}"
-                                            href="{{route('product')}}">{{ __('text.ProductManagement') }}</a>
+                                            href="{{route('product.index')}}">{{ __('text.ProductManagement') }}</a>
                                                 <a class="dropdown-item {{ Request::is('promotion*') ? 'active' : '' }}"
                                                     href="#">{{ __('text.PromotionPairing') }}</a>
                                                 <a class="dropdown-item {{ Request::is('coupon*') ? 'active' : '' }}"
@@ -152,7 +152,7 @@
             </div>
             <footer class="row tm-mt-small mt-5">
                 <div class="col-12 font-weight-light">
-                    <div class="row tm-bg-black">
+                    <div class="row tm-bg-black rounded">
                         <p class="d-inline-block text-white py-2 px-4 pr-5 col-md-6 col-xs-12">
                             {{ __('text.Address') }} <br>
                             123/15 Something road, Basmic ASD, sdadp aldw adwad,a wddwalk awd, 1231415 <br>

@@ -37,5 +37,9 @@ return [
     'ProductName' => 'ชื่อสินค้า',
     'InStocks' => 'สินค้าที่อยู่ในคลัง',
     'PriceEach' => 'ราคาต่อหน่วย',
-    'SearchUser' => 'ค้นหาผู้ใช้'
+    'SearchUser' => 'ค้นหาผู้ใช้',
+    'EditingUser' => 'แก้ไขบัญชีผู้ใช้หมายเลขที่',
+    'AdminAccess' => 'สถานะผู้ดูแลระบบ',
+    'CancelChanges' => 'ยกเลิกการแก้ไข',
+    'SaveChanges' => 'บันทึกการแก้ไข'
 ];

@@ -36,5 +36,9 @@ return [
     'ProductName' => 'Product Name',
     'InStocks' => 'In Stocks',
     'PriceEach' => 'Price/EA',
-    'SearchUser' => 'Search User'
+    'SearchUser' => 'Search User',
+    'EditingUser' => 'Editing User No.',
+    'AdminAccess' => 'Admin Access',
+    'CancelChanges' => 'Cancel Changes',
+    'SaveChanges' => 'Save Changes'
 ];
