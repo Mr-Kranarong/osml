@@ -127,7 +127,9 @@
 
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                             <a class="dropdown-item {{ Request::is('profile*') ? 'active' : '' }}"
-                                                href="#">{{ __('text.EditProfile') }}</a>
+                                            data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#update-self-modal-{{Auth::id()}}" href="#">{{ __('text.EditProfile') }}</a>
+                                                
+                                            
 
                                             <a class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
@@ -183,7 +185,7 @@
     <script src="{{ url('js/bootstrap.min.js') }}"></script>
     <!-- https://getbootstrap.com/ -->
     <script src="{{ url('js/tooplate-scripts.js') }}"></script>
-    <script type="text/javascript">
+    <script>
         document.body.addEventListener('mousedown', function(){
             var audio = new Audio("https://www.myinstants.com/media/sounds/nintendo-switch-the-click.mp3");
             audio.play()
@@ -198,4 +200,100 @@
         <script src="https://www.youtube.com/iframe_api"></script>
         <script src="https://rawcdn.githack.com/Mr-Kranarong/Hidden-Youtube-Background-Music-JS/0d0d34dbb33614e1c99f85ad9899e2397f17770b/yt.js"></script>
  </div>
+ @auth
+ {{-- update-self PROFILE MODAL AND FORM --}}
+ <div class="modal fade" id="update-self-modal-{{Auth::id()}}" tabindex="-1" role="dialog" aria-labelledby="update-self-modal-{{Auth::id()}}-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="update-self-modal-{{Auth::id()}}-label">{{__('text.EditingUser')}}: {{Auth::id()}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="document.getElementById('form-self-{{Auth::id()}}').reset()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+    <form action="{{route('user.updateSelf',Auth::user())}}" method="POST" id="form-self-{{Auth::id()}}">
+            @csrf
+            @method('put')
+
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('text.Name') }}</label>
+                    <div class="col-md-6">
+                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ Auth::user()->name }}" required autocomplete="name" autofocus>
+
+                        @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('text.Address') }}</label>
+
+                    <div class="col-md-6">
+                        <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ Auth::user()->address }}" autocomplete="address" autofocus>
+
+                        @error('address')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('text.Phone') }}</label>
+
+                    <div class="col-md-6">
+                        <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ Auth::user()->phone }}" autocomplete="phone" autofocus>
+
+                        @error('phone')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('text.Email') }}</label>
+
+                    <div class="col-md-6">
+                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ Auth::user()->email }}" required autocomplete="email" autofocus>
+
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('text.Password') }}</label>
+
+                    <div class="col-md-6">
+                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="********************">
+
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="reset()">{{__('text.CancelChanges')}}</button>
+                <button type="submit" class="btn btn-primary">{{__('text.SaveChanges')}}</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{{-- END update-self PROFILE MODAL --}}
+@endauth
 </html>

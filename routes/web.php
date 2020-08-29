@@ -18,6 +18,9 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('lang/{locale}', 'HomeController@lang');
 
+
+Route::put('/user/{user}/updateself', 'UserController@updateSelf')->name('user.updateSelf');
+
 Route::middleware(['admin'])->group(function(){
     Route::post('/product', 'ProductController@search')->name('product.search');
     Route::get('/product', 'ProductController@index')->name('product.index');

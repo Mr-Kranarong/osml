@@ -34,7 +34,7 @@ return [
     'TotalProduct' => 'Total Product',
     'SearchProduct' => 'Search Product',
     'ProductName' => 'Product Name',
-    'InStocks' => 'In Stocks',
+    'InStocks' => 'Stocks',
     'PriceEach' => 'Price/EA',
     'SearchUser' => 'Search User',
     'EditingUser' => 'Editing User No.',
