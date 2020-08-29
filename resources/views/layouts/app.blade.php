@@ -32,9 +32,10 @@
             <div class="row">
                 <div class="col-12">
                     <nav class="navbar navbar-expand-xl navbar-light bg-light rounded">
-                        <a class="navbar-brand" href="{{ url('/') }}">
-                            <i class="fas fa-3x fa-tachometer-alt tm-site-icon"></i>
-                            <h1 class="tm-site-title mb-0">{{ Config::get('app.name') }}</h1>
+                        <a class="navbar-brand" style="width:20%" href="{{ url('/') }}">
+                            {{-- <i class="fas fa-3x fa-tachometer-alt tm-site-icon"></i> --}}
+                            <img src="https://i.gifer.com/H0be.gif" style="max-width: 15%;width:fit-content;" alt="">
+                            <h1 class="tm-site-title mb-0" style="width:fit-content">{{ Config::get('app.name') }}</h1>
                         </a>
                         <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -43,7 +44,7 @@
                         </button>
 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav mr-auto">
+                            <ul class="navbar-nav ml-auto">
                                 <li class="nav-item">
                                     <a class="nav-link {{ Request::is('/') ? 'active' : '' }}"
                                         href="{{ route('home') }}">{{ __('text.Home') }}
@@ -182,34 +183,11 @@
     <script src="{{ url('js/bootstrap.min.js') }}"></script>
     <!-- https://getbootstrap.com/ -->
     <script src="{{ url('js/tooplate-scripts.js') }}"></script>
-    <script>
-        let ctxLine,
-            ctxBar,
-            ctxPie,
-            optionsLine,
-            optionsBar,
-            optionsPie,
-            configLine,
-            configBar,
-            configPie,
-            lineChart;
-        barChart, pieChart;
-        // DOM is ready
-        $(function () {
-            updateChartOptions();
-            drawLineChart(); // Line Chart
-            drawBarChart(); // Bar Chart
-            drawPieChart(); // Pie Chart
-            drawCalendar(); // Calendar
-
-            $(window).resize(function () {
-                updateChartOptions();
-                updateLineChart();
-                updateBarChart();
-                reloadPage();
-            });
-        })
-
+    <script type="text/javascript">
+        document.body.addEventListener('mousedown', function(){
+            var audio = new Audio("https://www.myinstants.com/media/sounds/nintendo-switch-the-click.mp3");
+            audio.play()
+        }); 
     </script>
     @yield('script')
 </body>

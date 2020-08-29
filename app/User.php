@@ -47,6 +47,7 @@ class User extends Authenticatable
     public function preferLanguage(){
         return $this->language;
     }
+    
     public function updateLanguage($locale){
         $this->language = $locale;
         $this->save();
