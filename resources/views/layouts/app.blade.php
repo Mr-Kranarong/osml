@@ -211,7 +211,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-    <form action="{{route('user.updateSelf',Auth::user())}}" method="POST" id="form-self-{{Auth::id()}}">
+    <form action="{{route('user.update_self',Auth::user())}}" method="POST" id="form-self-{{Auth::id()}}">
             @csrf
             @method('put')
 

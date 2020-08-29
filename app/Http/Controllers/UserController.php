@@ -33,7 +33,7 @@ class UserController extends Controller
         return redirect(route('user.index'));
     }
 
-    public function updateSelf(User $user){
+    public function update_self(User $user){
         $prepare = $this->inputValidation();
         if(!$prepare['password'] || $prepare['password'] == null || $prepare['password'] == ""){
             unset($prepare['password']);
