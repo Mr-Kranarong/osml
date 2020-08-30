@@ -57,6 +57,19 @@
                         </table>
                         {{$products->links()}}
                     </div>
+
+                    <div class="form-group row mb-0">
+                        <button type="submit" class="btn btn-outline-info col-xl-2 col-lg-6">
+                            {{ __('text.ManageCategories') }}
+                        </button>
+                            <button type="submit" class="btn btn-outline-success col-xl-2 col-lg-6">
+                                {{ __('text.AddProduct') }}
+                            </button>
+                            <button type="submit" class="btn btn-outline-danger ml-auto col-xl-2 col-lg-12">
+                                {{ __('text.DeleteSelectedProducts') }}
+                            </button>
+                    </div>
+
                 </div>
                 </form>
             </div>

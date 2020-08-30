@@ -41,5 +41,8 @@ return [
     'EditingUser' => 'แก้ไขบัญชีผู้ใช้หมายเลขที่',
     'AdminAccess' => 'สถานะผู้ดูแลระบบ',
     'CancelChanges' => 'ยกเลิกการแก้ไข',
-    'SaveChanges' => 'บันทึกการแก้ไข'
+    'SaveChanges' => 'บันทึกการแก้ไข',
+    'ManageCategories' => 'จัดการหมวดหมู่',
+    'AddProduct' => 'เพิ่มสินค้าใหม่',
+    'DeleteSelectedProducts' => 'ลบสินค้าทั้งหมดที่เลือก'
 ];

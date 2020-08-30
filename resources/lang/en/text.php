@@ -40,5 +40,8 @@ return [
     'EditingUser' => 'Editing User No.',
     'AdminAccess' => 'Admin Access',
     'CancelChanges' => 'Cancel Changes',
-    'SaveChanges' => 'Save Changes'
+    'SaveChanges' => 'Save Changes',
+    'ManageCategories' => 'Manage Categories',
+    'AddProduct' => 'Add New Product',
+    'DeleteSelectedProducts' => 'Delete Selected Products'
 ];
