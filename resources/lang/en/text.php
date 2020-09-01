@@ -42,6 +42,12 @@ return [
     'CancelChanges' => 'Cancel Changes',
     'SaveChanges' => 'Save Changes',
     'ManageCategories' => 'Manage Categories',
-    'AddProduct' => 'Add New Product',
-    'DeleteSelectedProducts' => 'Delete Selected Products'
+    'CreateProduct' => 'Create New Product',
+    'DeleteSelectedProducts' => 'Delete Selected Products',
+    'CategoryManagement' => 'Product Category Management',
+    'CategoryName' => 'Category Name',
+    'EditingCategory' => 'Editing Category',
+    'CreateCategory' => 'Create New Category',
+    'ConfirmAction' => 'Confirm Action',
+    'CancelAction' => 'Cancel Action'
 ];

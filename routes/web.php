@@ -22,6 +22,11 @@ Route::get('lang/{locale}', 'HomeController@lang');
 Route::put('/user/{user}/update_self', 'UserController@update_self')->name('user.update_self');
 
 Route::middleware(['admin'])->group(function(){
+    Route::post('/product/category/create', 'ProductController@category_create')->name('product.category.create');
+    Route::delete('/product/category/{category}', 'ProductController@category_delete')->name('product.category.delete');
+    Route::put('/product/category/{category}', 'ProductController@category_update')->name('product.category.update');
+    Route::get('/product/category', 'ProductController@category_index')->name('product.category.index');
+    
     Route::delete('/product', 'ProductController@delete')->name('product.delete');
     Route::post('/product', 'ProductController@search')->name('product.search');
     Route::get('/product', 'ProductController@index')->name('product.index');
@@ -29,7 +34,6 @@ Route::middleware(['admin'])->group(function(){
     Route::post('/user', 'UserController@search')->name('user.search');
     Route::delete('/user/{user}', 'UserController@delete')->name('user.delete');
     Route::put('/user/{user}', 'UserController@update')->name('user.update');
-    Route::get('/user/{user}/edit','UserController@edit')->name('user.edit');
     Route::get('/user', 'UserController@index')->name('user.index');
 });
 

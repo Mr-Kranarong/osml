@@ -43,6 +43,12 @@ return [
     'CancelChanges' => 'ยกเลิกการแก้ไข',
     'SaveChanges' => 'บันทึกการแก้ไข',
     'ManageCategories' => 'จัดการหมวดหมู่',
-    'AddProduct' => 'เพิ่มสินค้าใหม่',
-    'DeleteSelectedProducts' => 'ลบสินค้าที่เลือกทั้งหมด'
+    'CreateProduct' => 'เพิ่มสินค้าใหม่',
+    'DeleteSelectedProducts' => 'ลบสินค้าที่เลือกทั้งหมด',
+    'CategoryManagement' => 'จัดการหมวดหมู่สินค้า',
+    'CategoryName' => 'ชื่อหมวดหมู่',
+    'EditingCategory' => 'แก้ไขหมวดหมู่',
+    'CreateCategory' => 'สร้างหมวดหมู่',
+    'ConfirmAction' => 'ยืนยันการดำเนินการ',
+    'CancelAction' => 'ยกเลิกการดำเนินการ'
 ];

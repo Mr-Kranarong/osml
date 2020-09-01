@@ -59,11 +59,11 @@
                     </div>
 
                     <div class="form-group row mb-0">
-                        <button type="submit" class="btn btn-sm btn-outline-dark col-xl-2 col-lg-6">
-                            {{ __('text.ManageCategories') }}
-                        </button>
+                        <a href="{{ route('product.category.index') }}" class="btn btn-sm btn-outline-dark col-xl-2 col-lg-6">
+                            {{ __('text.CategoryManagement') }}
+                        </a>
                         <button type="submit" class="btn btn-sm btn-outline-success col-xl-2 col-lg-6">
-                            {{ __('text.AddProduct') }}
+                            {{ __('text.CreateProduct') }}
                         </button>
                         <form action="{{ route('product.delete') }}" method="POST">
                             @csrf
