@@ -22,6 +22,7 @@ Route::get('lang/{locale}', 'HomeController@lang');
 Route::put('/user/{user}/update_self', 'UserController@update_self')->name('user.update_self');
 
 Route::middleware(['admin'])->group(function(){
+    Route::delete('/product', 'ProductController@delete')->name('product.delete');
     Route::post('/product', 'ProductController@search')->name('product.search');
     Route::get('/product', 'ProductController@index')->name('product.index');
 

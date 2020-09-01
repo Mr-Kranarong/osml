@@ -129,8 +129,6 @@
                                             <a class="dropdown-item {{ Request::is('profile*') ? 'active' : '' }}"
                                             data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#update-self-modal-{{Auth::id()}}" href="#">{{ __('text.EditProfile') }}</a>
                                                 
-                                            
-
                                             <a class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

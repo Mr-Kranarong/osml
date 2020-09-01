@@ -21,4 +21,9 @@ class ProductController extends Controller
             'query' => $request->SearchProduct
         ]);
     }
+
+    public function delete(Request $request){
+        Product::destroy($request->chk_id);
+        return redirect(route('product.index'));
+    }
 }
