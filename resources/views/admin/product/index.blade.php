@@ -62,9 +62,9 @@
                         <a href="{{ route('product.category.index') }}" class="btn btn-sm btn-outline-dark col-xl-2 col-lg-6">
                             {{ __('text.CategoryManagement') }}
                         </a>
-                        <button type="submit" class="btn btn-sm btn-outline-success col-xl-2 col-lg-6">
+                        <a href="{{ route('product.create') }}" class="btn btn-sm btn-outline-success col-xl-2 col-lg-6">
                             {{ __('text.CreateProduct') }}
-                        </button>
+                        </a>
                         <form action="{{ route('product.delete') }}" method="POST">
                             @csrf
                             @method('delete')

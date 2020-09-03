@@ -16,13 +16,13 @@ class CreateProductTable extends Migration
         Schema::create('product', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->string('description',500);
             $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('product_category')->onDelete('set null');
             $table->decimal('price');
             $table->integer('stock_amount');
-            $table->integer('view_count');
-            $table->string('image_img');
+            $table->integer('view_count')->default('0');
+            $table->string('image_img',5000);
             $table->unsignedBigInteger('promotion_id')->nullable();
             $table->foreign('promotion_id')->references('id')->on('product_promotion')->onDelete('set null');
             $table->timestamps();

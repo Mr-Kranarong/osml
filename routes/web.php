@@ -13,20 +13,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//GUEST
 Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
-
 Route::get('lang/{locale}', 'HomeController@lang');
 
+//USER
+Route::middleware(['auth'])->group(function(){
+    Route::put('/user/{user}/update_self', 'UserController@update_self')->name('user.update_self');
+});
 
-Route::put('/user/{user}/update_self', 'UserController@update_self')->name('user.update_self');
-
+//ADMIN
 Route::middleware(['admin'])->group(function(){
     Route::post('/product/category/create', 'ProductController@category_create')->name('product.category.create');
     Route::delete('/product/category/{category}', 'ProductController@category_delete')->name('product.category.delete');
     Route::put('/product/category/{category}', 'ProductController@category_update')->name('product.category.update');
     Route::get('/product/category', 'ProductController@category_index')->name('product.category.index');
     
+    Route::post('/product/create', 'ProductController@store')->name('product.store');
+    Route::get('/product/create', 'ProductController@create')->name('product.create');
     Route::delete('/product', 'ProductController@delete')->name('product.delete');
     Route::post('/product', 'ProductController@search')->name('product.search');
     Route::get('/product', 'ProductController@index')->name('product.index');
@@ -36,12 +41,3 @@ Route::middleware(['admin'])->group(function(){
     Route::put('/user/{user}', 'UserController@update')->name('user.update');
     Route::get('/user', 'UserController@index')->name('user.index');
 });
-
-//Route for normal user
-// Route::group(['middleware' => ['auth']], function () {
-//     Route::get('/', 'HomeController@index');
-// });
-//Route for admin
-// Route::group(['middleware' => ['admin']], function(){
-//     Route::get('/dashboard', 'admin\AdminController@index');
-// });

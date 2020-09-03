@@ -50,5 +50,8 @@ return [
     'EditingCategory' => 'แก้ไขหมวดหมู่',
     'CreateCategory' => 'สร้างหมวดหมู่',
     'ConfirmAction' => 'ยืนยันการดำเนินการ',
-    'CancelAction' => 'ยกเลิกการดำเนินการ'
+    'CancelAction' => 'ยกเลิกการดำเนินการ',
+    'ProductDescription' => 'รายละเอียดสินค้า',
+    'ProductCategory' => 'หมวดหมู่สินค้า',
+    'ProductImage' => 'รูปภาพสินค้า'
 ];

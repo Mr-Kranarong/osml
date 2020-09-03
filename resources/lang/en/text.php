@@ -49,5 +49,8 @@ return [
     'EditingCategory' => 'Editing Category',
     'CreateCategory' => 'Create New Category',
     'ConfirmAction' => 'Confirm Action',
-    'CancelAction' => 'Cancel Action'
+    'CancelAction' => 'Cancel Action',
+    'ProductDescription' => 'Product Description',
+    'ProductCategory' => 'Product Category',
+    'ProductImage' => 'Product Images'
 ];
