@@ -50,7 +50,7 @@
                                     <td class="tm-product-name">{{$product->name}}</td>
                                     <td class="text-center">{{$product->stock_amount}}</td>
                                     <td class="text-center">{{$product->price}}</td>
-                                    <td><a href="{{$product->id}}"><i class="fas fa-pencil-alt text-dark"></i></a></td>
+                                <td><a href="{{route('product.edit',$product)}}"><i class="fas fa-pencil-alt text-dark"></i></a></td>
                                 </tr>
                                 @endforeach
                             </tbody>

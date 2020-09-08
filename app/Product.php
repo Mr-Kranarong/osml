@@ -8,4 +8,6 @@ class Product extends Model
 {
     //
     protected $table = "product";
+    static $unguarded = true;
+
 }

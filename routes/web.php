@@ -32,6 +32,9 @@ Route::middleware(['admin'])->group(function(){
     
     Route::post('/product/create', 'ProductController@store')->name('product.store');
     Route::get('/product/create', 'ProductController@create')->name('product.create');
+    Route::delete('/product/{product}/delete_image', 'ProductController@delete_image')->name('product.delete_image');
+    Route::put('/product/{product}', 'ProductController@update')->name('product.update');
+    Route::get('/product/{product}', 'ProductController@edit')->name('product.edit');
     Route::delete('/product', 'ProductController@delete')->name('product.delete');
     Route::post('/product', 'ProductController@search')->name('product.search');
     Route::get('/product', 'ProductController@index')->name('product.index');

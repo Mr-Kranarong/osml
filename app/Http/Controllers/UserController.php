@@ -25,12 +25,12 @@ class UserController extends Controller
 
     public function delete(User $user){
         $user->delete();
-        return redirect(route('user.index'));
+        return redirect()->back();
     }
 
     public function update(User $user){
         $user->update($this->inputValidation());
-        return redirect(route('user.index'));
+        return redirect()->back();
     }
 
     public function update_self(User $user){
@@ -41,7 +41,7 @@ class UserController extends Controller
             $prepare['password'] = Hash::make($prepare['password']);
         }
         $user->update($prepare);
-        return redirect(route('home'));
+        return redirect()->back();
     }
 
     public function inputValidation(){

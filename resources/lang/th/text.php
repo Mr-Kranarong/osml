@@ -53,5 +53,7 @@ return [
     'CancelAction' => 'ยกเลิกการดำเนินการ',
     'ProductDescription' => 'รายละเอียดสินค้า',
     'ProductCategory' => 'หมวดหมู่สินค้า',
-    'ProductImage' => 'รูปภาพสินค้า'
+    'ProductImage' => 'รูปภาพสินค้า',
+    'EditProduct' => 'แก้ไขสินค้า',
+    'Back' => 'ย้อนกลับ'
 ];

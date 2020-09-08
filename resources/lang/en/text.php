@@ -52,5 +52,7 @@ return [
     'CancelAction' => 'Cancel Action',
     'ProductDescription' => 'Product Description',
     'ProductCategory' => 'Product Category',
-    'ProductImage' => 'Product Images'
+    'ProductImage' => 'Product Images',
+    'EditProduct' => 'Edit Product',
+    'Back' => 'Go Back'
 ];
