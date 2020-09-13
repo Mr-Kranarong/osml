@@ -165,6 +165,7 @@ class ProductController extends Controller
         return redirect()->back();
     }
 
+    //VALIDATION
     public function validateCategory()
     {
         return request()->validate([

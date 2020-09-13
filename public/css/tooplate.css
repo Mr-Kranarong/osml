@@ -199,8 +199,8 @@ ol {
 .form-control {
   margin-bottom: 23px;
   padding: 19px 18px;
-  border-radius: 0;
-  height: 50px;
+  border-radius: 5px;
+  height: 40px;
 }
 
 label {

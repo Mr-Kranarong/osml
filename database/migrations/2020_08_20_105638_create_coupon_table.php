@@ -17,8 +17,13 @@ class CreateCouponTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('code');
-            $table->date('expire_date');
+            $table->date('expire_date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->decimal('min_total_price')->nullable();
+            $table->decimal('max_total_price')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('product_category')->onDelete('cascade');
+            $table->decimal('discount_percentage')->nullable();
+            $table->decimal('discount_amount')->nullable();
             $table->timestamps();
         });
     }

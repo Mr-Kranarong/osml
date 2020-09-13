@@ -43,4 +43,9 @@ Route::middleware(['admin'])->group(function(){
     Route::delete('/user/{user}', 'UserController@delete')->name('user.delete');
     Route::put('/user/{user}', 'UserController@update')->name('user.update');
     Route::get('/user', 'UserController@index')->name('user.index');
+
+    Route::put('/coupon/{coupon}', 'CouponController@update')->name('coupon.update');
+    Route::delete('/coupon/{coupon}', 'CouponController@delete')->name('coupon.delete');
+    Route::post('/coupon', 'CouponController@create')->name('coupon.create');
+    Route::get('/coupon', 'CouponController@index')->name('coupon.index');
 });

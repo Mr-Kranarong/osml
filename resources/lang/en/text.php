@@ -54,5 +54,19 @@ return [
     'ProductCategory' => 'Product Category',
     'ProductImage' => 'Product Images',
     'EditProduct' => 'Edit Product',
-    'Back' => 'Go Back'
+    'Back' => 'Go Back',
+    'CreateCoupon' => 'Create Coupon',
+    'CouponName' => 'Coupon Name',
+    'ExpireDate' => 'Expire Date',
+    'Code' => 'Code',
+    'DiscountType' => 'Discount Type',
+    'ByPercentageOf' => 'By Percentage Of',
+    'ByTotalSumOf' => 'By Total Sum Of',
+    'Conditions' => 'Conditions',
+    'MustBeOfType' => 'Must Be Of Type',
+    'CostOver' => 'Cost Over',
+    'CostLessThan' => 'Cost Less Than',
+    'ValidUntil' => 'Valid Until',
+    'OfTotalCost' => 'Of Total',
+    'Cut' => 'Cut'
 ];

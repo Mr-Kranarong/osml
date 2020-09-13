@@ -69,7 +69,7 @@
                                                 <a class="dropdown-item {{ Request::is('promotion*') ? 'active' : '' }}"
                                                     href="#">{{ __('text.PromotionPairing') }}</a>
                                                 <a class="dropdown-item {{ Request::is('coupon*') ? 'active' : '' }}"
-                                                    href="#">{{ __('text.Coupon') }}</a>
+                                                    href="{{ route('coupon.index') }}">{{ __('text.Coupon') }}</a>
                                             </div>
                                         </li>
                                     @endif
@@ -79,11 +79,6 @@
                                     <li class="nav-item {{ Request::is('orders_reviews*') ? 'active' : '' }}">
                                         <a class="nav-link" href="#">{{ __('text.OrdersReviews') }}</a>
                                     </li>
-                                    @if (!Auth::user()->hasAccess())
-                                        <li class="nav-item {{ Request::is('cart*') ? 'active' : '' }}">
-                                            <a class="nav-link" href="#">{{ __('text.Cart') }}</a>
-                                        </li>
-                                    @endif
 
                                     @if (Auth::user()->hasAccess())
                                         <li class="nav-item {{ Request::is('statistics*') ? 'active' : '' }}">
@@ -94,6 +89,12 @@
                                         </li>
                                     @endif
                                 @endauth
+
+                                @if (!Auth::user() || !Auth::user()->hasAccess())
+                                        <li class="nav-item {{ Request::is('cart*') ? 'active' : '' }}">
+                                            <a class="nav-link" href="#">{{ __('text.Cart') }}</a>
+                                        </li>
+                                @endif
                             </ul>
                             <ul class="navbar-nav ml-auto">
                                 @guest
