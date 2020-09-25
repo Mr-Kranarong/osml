@@ -89,3 +89,52 @@
 .mein-font-14{
     font-size: 14px;
 }
+
+.checked {
+    color: orange;
+  }
+
+.starRating:not(old){
+    display        : inline-block;
+    height         : 1.5em;
+    overflow       : hidden;
+    vertical-align : middle;
+}
+
+.starRating:not(old) > input{
+    margin-right : 0%;
+    opacity      : 0;
+}
+
+.starRating:not(old) > label{
+    display         : block;
+    float           : right;
+    position        : relative;
+    background      : url(../img/icon/star-off.svg);
+    background-size : contain;
+  }
+
+  .starRating:not(old) > label:before{
+    content         : '';
+    display         : block;
+    width           : 1.5em;
+    height          : 1.5em;
+    background      : url(../img/icon/star-on.svg);
+    background-size : contain;
+    opacity         : 0;
+    transition      : opacity 0.2s linear;
+  }
+
+  .starRating:not(old) > label:hover:before,
+.starRating:not(old) > label:hover ~ label:before,
+.starRating:not(:hover) > :checked ~ label:before{
+  opacity : 1;
+}
+
+.mein-width-100{
+    width: 100%;
+}
+
+.mein-width-50{
+    width: 50%;
+}

@@ -91,9 +91,9 @@
                                 @endauth
 
                                 @if (!Auth::user() || !Auth::user()->hasAccess())
-                                        <li class="nav-item {{ Request::is('cart*') ? 'active' : '' }}">
-                                            <a class="nav-link" href="#">{{ __('text.Cart') }}</a>
-                                        </li>
+                                    <li class="nav-item {{ Request::is('cart*') ? 'active' : '' }}">
+                                        <a class="nav-link" href="#">{{ __('text.Cart') }}</a>
+                                    </li>
                                 @endif
                             </ul>
                             <ul class="navbar-nav ml-auto">
@@ -128,7 +128,7 @@
 
                                             <a class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             document.getElementById('logout-form').submit();">
                                                 {{ __('text.Logout') }}
                                             </a>
 
@@ -167,6 +167,8 @@
             </footer>
         </div>
     </div>
+    <iframe width="0%" height="0" scrolling="no" frameborder="no" allow="autoplay" id="scp"
+    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2960154&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false"></iframe>
     <script src="{{ url('js/jquery-3.3.1.min.js') }}"></script>
     <!-- https://jquery.com/download/ -->
     <script src="{{ url('js/moment.min.js') }}"></script>
@@ -187,15 +189,26 @@
             var audio = new Audio("https://www.myinstants.com/media/sounds/nintendo-switch-the-click.mp3");
             audio.play()
         });
+
     </script>
+
+    <script src="https://w.soundcloud.com/player/api.js"></script>
+    <script>
+        var widget = SC.Widget(document.getElementById("scp"));
+        widget.bind(SC.Widget.FINISH, function() {
+            widget.seekTo(0);
+            widget.play();
+        });
+    </script>
+
     @yield('script')
 </body>
-<div data-video="o6rDNJaF3Qg" data-loop="1" data-playlist="" id="youtube-audio">
+{{-- <div data-video="w0byaC0F-i8" data-loop="1" data-playlist="" id="youtube-audio">
     <script src="https://www.youtube.com/iframe_api"></script>
     <script
         src="https://rawcdn.githack.com/Mr-Kranarong/Hidden-Youtube-Background-Music-JS/0d0d34dbb33614e1c99f85ad9899e2397f17770b/yt.js">
     </script>
-</div>
+</div> --}}
 @auth
     {{-- update-self PROFILE MODAL AND FORM --}}
     <div class="modal fade" id="update-self-modal-{{ Auth::id() }}" tabindex="-1" role="dialog"
@@ -216,9 +229,10 @@
 
                     <div class="modal-body">
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('text.Name') }}</label>
+                            <label for="self-name"
+                                class="col-md-4 col-form-label text-md-right">{{ __('text.Name') }}</label>
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
+                                <input id="self-name" type="text" class="form-control @error('name') is-invalid @enderror"
                                     name="name" value="{{ Auth::user()->name }}" required autocomplete="name" autofocus>
 
                                 @error('name')
@@ -230,12 +244,13 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="address"
+                            <label for="self-address"
                                 class="col-md-4 col-form-label text-md-right">{{ __('text.Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="address" type="text" class="form-control @error('address') is-invalid @enderror"
-                                    name="address" value="{{ Auth::user()->address }}" autocomplete="address" autofocus>
+                                <input id="self-address" type="text"
+                                    class="form-control @error('address') is-invalid @enderror" name="address"
+                                    value="{{ Auth::user()->address }}" autocomplete="address" autofocus>
 
                                 @error('address')
                                 <span class="invalid-feedback" role="alert">
@@ -246,10 +261,11 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('text.Phone') }}</label>
+                            <label for="self-phone"
+                                class="col-md-4 col-form-label text-md-right">{{ __('text.Phone') }}</label>
 
                             <div class="col-md-6">
-                                <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror"
+                                <input id="self-phone" type="text" class="form-control @error('phone') is-invalid @enderror"
                                     name="phone" value="{{ Auth::user()->phone }}" autocomplete="phone" autofocus>
 
                                 @error('phone')
@@ -261,11 +277,13 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('text.Email') }}</label>
+                            <label for="self-email"
+                                class="col-md-4 col-form-label text-md-right">{{ __('text.Email') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                    name="email" value="{{ Auth::user()->email }}" required autocomplete="email" autofocus>
+                                <input id="self-email" type="email"
+                                    class="form-control @error('email') is-invalid @enderror" name="email"
+                                    value="{{ Auth::user()->email }}" required autocomplete="email" autofocus>
 
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -276,11 +294,11 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password"
+                            <label for="self-password"
                                 class="col-md-4 col-form-label text-md-right">{{ __('text.Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password"
+                                <input id="self-password" type="password"
                                     class="form-control @error('password') is-invalid @enderror" name="password"
                                     placeholder="********************">
 

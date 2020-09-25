@@ -68,5 +68,12 @@ return [
     'CostLessThan' => 'Cost Less Than',
     'ValidUntil' => 'Valid Until',
     'OfTotalCost' => 'Of Total',
-    'Cut' => 'Cut'
+    'Cut' => 'Cut',
+    'MinRating' => 'Min Rating',
+    'PriceRange' => 'Price Range',
+    'MinPrice' => 'Min',
+    'MaxPrice' => 'Max',
+    'ApplyFilter' => 'Apply Filter',
+    'ResetFilter' => 'Reset Filter',
+    'Filter' => 'Filter'
 ];

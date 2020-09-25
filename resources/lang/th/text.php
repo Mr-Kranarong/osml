@@ -69,5 +69,12 @@ return [
     'CostLessThan' => 'มูลค่ารวมน้อยกว่า',
     'ValidUntil' => 'ใช้ได้จนถึง',
     'OfTotalCost' => 'จากราคารวม',
-    'Cut' => 'หัก'
+    'Cut' => 'หัก',
+    'MinRating' => 'คะแนนขั้นต่ำ',
+    'PriceRange' => 'ช่วงราคา',
+    'MinPrice' => 'ต่ำสุด',
+    'MaxPrice' => 'สูงสุด',
+    'ApplyFilter' => 'ใช้ตัวกรอง',
+    'ResetFilter' => 'ยกเลิกตัวกรอง',
+    'Filter' => 'ตัวกรอง'
 ];
