@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 //GUEST
 Auth::routes();
+Route::get('/filter', 'HomeController@filter')->name('home.filter');
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('lang/{locale}', 'HomeController@lang');
 
