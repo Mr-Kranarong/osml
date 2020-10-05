@@ -16,17 +16,16 @@
                                 {{-- card loop --}}
                                 @foreach ($products as $product)
                                 <div class="mein-card" >
+                                    @if ($product->image_img)
                                     <div id="product-{{$product->id}}" class="carousel slide" data-ride="carousel">
                                         <ol class="carousel-indicators">
                                             {{-- loop to image number
                                             --}}
-                                            @if ($product->image_img)
                                             <?php $images = explode('|', $product->image_img);$x=0; ?>
                                                 @foreach ($images as $image)
                                                 <li data-target="#product-{{$product->id}}" data-slide-to="{{$x}}"></li>
                                                 <?php $x++ ?>
                                                 @endforeach
-                                            @endif
                                         </ol>
                                         <div class="carousel-inner">
                                             {{-- loop to image number
@@ -50,6 +49,8 @@
                                             <span class="sr-only">Next</span>
                                         </a>
                                     </div>
+                                    @endif
+                                    @if (!$product->image_img) <img class="d-block home-product-gallery-image"> @endif
                                     <div class="p-2">
                                     <p class="my-0 home-product-name"><a href="{{route('product.view',$product)}}" style="color:black">{{$product->name}}</a></p>
                                         <div class="my-0 home-product-price text-left">

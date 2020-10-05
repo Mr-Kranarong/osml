@@ -6,6 +6,7 @@ use App\Product;
 use App\Product_Category;
 use App\Product_Review;
 use App\Product_Question;
+use App\Favorite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -68,6 +69,10 @@ class ProductController extends Controller
             ->where('question','like','%'.$request->SearchQuestion.'%')
             ->orderBy('product_question.created_at', 'desc')->paginate(5, ['*'], 'questions');
            
+            if(Auth::check()){
+                $favorite = Favorite::where('user_id','=',Auth::user()->id)->where('product_id','=',"$product->id")->first();
+            }
+            
 
         return view('product',[
             'product' => $Product,
@@ -75,7 +80,8 @@ class ProductController extends Controller
             'reviews' =>$reviews,
             'total_review' => Product_Review::all()->count(),
             'questions' => $questions,
-            'query' => $request->SearchQuestion
+            'query' => $request->SearchQuestion,
+            'favorite' => $favorite
         ]);
     }
 
@@ -110,14 +116,23 @@ class ProductController extends Controller
             }
         }
 
-        Product::insert([
-            'name' => $input['name'],
-            'description' => $input['description'],
-            'category_id' => $input['category'],
-            'price' => $input['price'],
-            'stock_amount' => $input['stock_amount'],
-            'image_img' =>  implode("|", $images),
-        ]);
+        // Product::insert([
+        //     'name' => $input['name'],
+        //     'description' => $input['description'],
+        //     'category_id' => $input['category'],
+        //     'price' => $input['price'],
+        //     'stock_amount' => $input['stock_amount'],
+        //     'image_img' =>  implode("|", $images),
+        // ]);
+
+        $product = new Product();
+        $product->name = $input['name'];
+        $product->description = $input['description'];
+        $product->category_id = $input['category'];
+        $product->price = $input['price'];
+        $product->stock_amount = $input['stock_amount'];
+        $product->image_img = implode("|", $images);
+        $product->save();
 
         return redirect(route('product.index'));
     }
@@ -134,7 +149,12 @@ class ProductController extends Controller
             }
         }
 
-        $old_images = explode('|',$product->image_img);
+        if($product->image_img){
+            $old_images = explode('|',$product->image_img);
+        }else{
+            $old_images = Array();
+        }
+        
         $images = array_merge($old_images,$new_images);
 
         $product->update([
@@ -156,7 +176,7 @@ class ProductController extends Controller
             'image_img' =>  implode("|", $new_images),
         ]);
          if (file_exists('images/' . request()->target_image)) unlink('images/' . request()->target_image);
-        return response()->json(array('msg'=> 'operation successful'), 200);;
+        return response()->json(array('msg'=> 'operation successful'), 200);
     }
 
     //VALIDATION

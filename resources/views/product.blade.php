@@ -41,6 +41,7 @@
                         </ol>
                     </div>
                     @endif
+                    @if (!$product->image_img) <img class="d-block product-gallery-image rounded"> @endif
                 </div>
                 {{-- details --}}
                 <div class="col-lg-6 p-4 my-auto">
@@ -56,14 +57,17 @@
                       </p>
                       <p class="product-details-text">{{__('text.TotalPrice')}}: <span id="total_price">0</span>B</p>
                       <div class="row">
-                        <div class="col">
+                        <div class="col-sm-6">
                           <button class="btn btn-sm btn-outline-success w-100">
                             {{__('text.AddToCart')}}
                           </button>
                         </div>
                         @auth
-                        <div class="col">
-                          <button class="btn btn-sm btn-outline-warning w-100">
+                        <div class="col-sm-6">
+                          <button class="btn btn-sm btn-outline-danger w-100 @if (!$favorite) d-none @endif" id="removeWishlist" onclick="wishlistToggler(0)">
+                            {{__('text.RemoveFromWishlist')}}
+                          </button>
+                          <button class="btn btn-sm btn-outline-warning w-100 @if ($favorite) d-none @endif" id="addWishlist" onclick="wishlistToggler(1)">
                             {{__('text.AddToWishlist')}}
                           </button>
                         </div>
@@ -124,8 +128,11 @@
                 </div>
                 <div class="card-body">
                   @foreach ($questions as $question)
-                    <p><strong>Q:</strong> {{$question->question}}</p>
-                    <p><strong>A:</strong> {{$question->response}}</p>
+                  <div>
+                    <p class="mein-font-14 mb-0"><strong>Q:</strong> {{$question->question}}</p>
+                    <p class="mein-font-14 mb-0"><strong>A:</strong> {{$question->response}}</p>
+                    <p class="float-right">{{__('text.AskedBy')}} {{$question->name}}</p>
+                  </div>
                     <hr>
                   @endforeach
                   {{ $questions->appends(['reviews' => $reviews->currentPage()])->links() }}
@@ -161,6 +168,32 @@
         amount.value = {{$product->stock_amount}};
       }
       $('#total_price').text(amount.value * {{$product->price}});
+    }
+
+    function wishlistToggler(status){
+        var addWishlistButton = document.getElementById('addWishlist');
+        var removeWishlistButton = document.getElementById('removeWishlist');
+        if(status==0){
+          $.ajax({
+               type:'delete',
+               url:"{{route('favorite.remove')}}",
+               data:{"_token": "{{ csrf_token() }}",'product_id': {{$product->id}}},
+               success:function(data) {
+                  removeWishlistButton.classList.add("d-none");
+                  addWishlistButton.classList.remove("d-none");
+               }
+            });
+        }else if(status==1){
+          $.ajax({
+               type:'post',
+               url:"{{route('favorite.add')}}",
+               data:{"_token": "{{ csrf_token() }}",'product_id': {{$product->id}}},
+               success:function(data) {
+                addWishlistButton.classList.add("d-none");
+                removeWishlistButton.classList.remove("d-none");
+               }
+            });
+        }
     }
 </script>
 @endsection

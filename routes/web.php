@@ -43,6 +43,9 @@ Route::middleware(['admin'])->group(function(){
 //USER
 Route::middleware(['auth'])->group(function(){
     Route::put('/user/{user}/update_self', 'UserController@update_self')->name('user.update_self');
+
+    Route::delete('/favorite/ajax', 'FavoriteController@remove')->name('favorite.remove');
+    Route::post('/favorite/ajax', 'FavoriteController@add')->name('favorite.add');
 });
 
 //GUEST

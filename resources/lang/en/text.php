@@ -84,5 +84,7 @@ return [
     'AddToWishlist' => 'Add To Wishlist',
     'ProductReview' => 'Product Reviews',
     'ProductQuestion' => 'Product Inquiries',
-    'SearchQuestion' => 'Search Question'
+    'SearchQuestion' => 'Search Question',
+    'AskedBy' => 'Asked by',
+    'RemoveFromWishlist' => 'Remove From Wishlist'
 ];

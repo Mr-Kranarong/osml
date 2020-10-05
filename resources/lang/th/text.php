@@ -85,5 +85,7 @@ return [
     'AddToWishlist' => 'เพิ่มในรายการที่สนใจ',
     'ProductReview' => 'ความเห็นเกี่ยวกับสินค้า',
     'ProductQuestion' => 'สอบถามเกี่ยวกับสินค้า',
-    'SearchQuestion' => 'ค้นหาคำถาม'
+    'SearchQuestion' => 'ค้นหาคำถาม',
+    'AskedBy' => 'ถามโดย',
+    'RemoveFromWishlist' => 'ลบจากรายการที่สนใจ'
 ];
