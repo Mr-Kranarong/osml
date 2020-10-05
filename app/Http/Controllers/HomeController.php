@@ -30,8 +30,8 @@ class HomeController extends Controller
     public function index()
     {
         $product = Product::leftJoin('product_review','product_review.product_id','=','product.id')
-            ->select('*',DB::raw('AVG(product_review.rating) as rating'))
-            ->groupBy('product.id')->select('product.*','rating')->paginate(12);
+            ->select('product.*',DB::raw('AVG(product_review.rating) as rating'))
+            ->groupBy('product.id')->orderBy('created_at', 'desc')->paginate(12);
 
         return view('home', [
             'products' => $product,
@@ -44,8 +44,8 @@ class HomeController extends Controller
     public function filter(Request $request){
         //name (name,desc), category, rating, min, max
         $product = Product::leftJoin('product_review','product_review.product_id','=','product.id')
-        ->select('*',DB::raw('AVG(product_review.rating) as rating'))
-        ->groupBy('product.id')->select('product.*','rating');
+        ->select('product.*',DB::raw('AVG(product_review.rating) as rating'))
+        ->groupBy('product.id');
 
         if($request->name) $product->where(function ($query) use ($request) { $query->where('name','like','%'.$request->name.'%')->orWhere('product.description','like','%'.$request->name.'%');});//MATCHN AGAINST DESCRIPT PRONE TO ERROR
         if($request->category) $product->where('category_id','=',$request->category);

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -24,6 +25,7 @@
     {{-- extra --}}
     <link rel="stylesheet" href="{{ url('css/venobox.min.css') }}">
     <link rel="stylesheet" href="{{ url('css/custom.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 </head>
 
 <body id="reportsPage">
@@ -170,6 +172,7 @@
     <iframe width="0%" height="0" scrolling="no" frameborder="no" allow="autoplay" id="scp"
     src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2960154&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false"></iframe>
     <script src="{{ url('js/jquery-3.3.1.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <!-- https://jquery.com/download/ -->
     <script src="{{ url('js/moment.min.js') }}"></script>
     <!-- https://momentjs.com/ -->
@@ -181,6 +184,7 @@
     <script src="{{ url('js/bootstrap.min.js') }}"></script>
     <!-- https://getbootstrap.com/ -->
     <script src="{{ url('js/tooplate-scripts.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
     {{-- extra --}}
     <script src="{{ url('js/venobox.min.js') }}"></script>

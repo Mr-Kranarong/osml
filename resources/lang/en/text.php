@@ -75,5 +75,14 @@ return [
     'MaxPrice' => 'Max',
     'ApplyFilter' => 'Apply Filter',
     'ResetFilter' => 'Reset Filter',
-    'Filter' => 'Filter'
+    'Filter' => 'Filter',
+    'Rating' => 'Rating',
+    'Price' => 'Price',
+    'BuyAmount' => 'Buy Amount',
+    'TotalPrice' => 'Total Price',
+    'AddToCart' => 'Add To Cart',
+    'AddToWishlist' => 'Add To Wishlist',
+    'ProductReview' => 'Product Reviews',
+    'ProductQuestion' => 'Product Inquiries',
+    'SearchQuestion' => 'Search Question'
 ];

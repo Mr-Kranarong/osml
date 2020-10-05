@@ -41,8 +41,10 @@
                                     class="col-xl-4 col-form-label text-xl-right">{{ __('text.ProductDescription') }}</label>
 
                                 <div class="col-xl-6">
+                                    <div id="descriptionEditor"></div>
+
                                     <textarea id="description" name="description"
-                                        class="form-control @error('description') is-invalid @enderror" rows="3" required
+                                        class="form-control @error('description') is-invalid @enderror d-none" rows="3" required
                                         autocomplete="description" autofocus>{{ $product->description }}</textarea>
 
                                     @error('description')
@@ -148,7 +150,7 @@
                                 <a href="{{ route('product.index') }}"
                                     class="btn btn-secondary col-xs-6 ml-auto">{{ __('text.Back') }}</a>
                                 <button type="submit"
-                                    class="btn btn-primary col-xs-6 mr-auto">{{ __('text.ConfirmAction') }}</button>
+                                    class="btn btn-primary col-xs-6 mr-auto" onclick="editortotextarea()">{{ __('text.ConfirmAction') }}</button>
                             </div>
                         </form>
                     </div>
@@ -164,6 +166,18 @@
         $('.venobox').venobox({
             infinigall: true,
         });
+        $('#descriptionEditor').summernote({
+        tabsize: 1,
+        height: 100,
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['insert', ['link']],
+          ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+      }).summernote('code','{!! $product->description !!}');
     });
 
     function ExecutingOrderSixtySix(e,id){
@@ -177,5 +191,11 @@
                }
             });
     }
+
+
+function editortotextarea() { 
+    var description = document.getElementById('description');
+    description.value  = $('#descriptionEditor').summernote('code');
+ }
 </script>
 @endsection

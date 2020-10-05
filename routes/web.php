@@ -13,17 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//GUEST
-Auth::routes();
-Route::get('/filter', 'HomeController@filter')->name('home.filter');
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('lang/{locale}', 'HomeController@lang');
-
-//USER
-Route::middleware(['auth'])->group(function(){
-    Route::put('/user/{user}/update_self', 'UserController@update_self')->name('user.update_self');
-});
-
 //ADMIN
 Route::middleware(['admin'])->group(function(){
     Route::post('/product/category/create', 'ProductController@category_create')->name('product.category.create');
@@ -34,8 +23,8 @@ Route::middleware(['admin'])->group(function(){
     Route::post('/product/create', 'ProductController@store')->name('product.store');
     Route::get('/product/create', 'ProductController@create')->name('product.create');
     Route::delete('/product/{product}/delete_image', 'ProductController@delete_image')->name('product.delete_image');
-    Route::put('/product/{product}', 'ProductController@update')->name('product.update');
-    Route::get('/product/{product}', 'ProductController@edit')->name('product.edit');
+    Route::put('/product/{product}/edit', 'ProductController@update')->name('product.update');
+    Route::get('/product/{product}/edit', 'ProductController@edit')->name('product.edit');
     Route::delete('/product', 'ProductController@delete')->name('product.delete');
     Route::post('/product', 'ProductController@search')->name('product.search');
     Route::get('/product', 'ProductController@index')->name('product.index');
@@ -50,3 +39,16 @@ Route::middleware(['admin'])->group(function(){
     Route::post('/coupon', 'CouponController@create')->name('coupon.create');
     Route::get('/coupon', 'CouponController@index')->name('coupon.index');
 });
+
+//USER
+Route::middleware(['auth'])->group(function(){
+    Route::put('/user/{user}/update_self', 'UserController@update_self')->name('user.update_self');
+});
+
+//GUEST
+Route::get('/product/{product}', 'ProductController@view')->name('product.view');
+
+Route::get('/filter', 'HomeController@filter')->name('home.filter');
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('lang/{locale}', 'HomeController@lang');
+Auth::routes();

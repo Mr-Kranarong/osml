@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\Product_Category;
+use App\Product_Review;
+use App\Product_Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -40,6 +44,38 @@ class ProductController extends Controller
         return view('admin.product.edit', [
             'product' => $product,
             'categories' => Product_Category::all()
+        ]);
+    }
+
+    public function view(Product $product, Request $request){
+        // if(Auth::check() && Auth::user()->hasAccess()){
+        //     return view('admin.user.index');
+        // }elseif(Auth::check()){
+        //     return redirect(route('home'));
+        // }else{
+        //     return redirect(route('home'));
+        // }
+
+            $Product = $product->leftJoin('product_review','product_review.product_id','=','product.id')
+            ->select('product.*',DB::raw('AVG(product_review.rating) as rating'))
+            ->groupBy('product.id')->where('product.id',"$product->id")->first();
+
+            $reviews = Product_Review::leftJoin('users','product_review.user_id','=','users.id')
+            ->where('product_review.product_id','=',"$product->id")->orderBy('product_review.created_at', 'desc')->paginate(2, ['*'], 'reviews');
+
+            $questions = Product_Question::leftJoin('users','product_question.user_id','=','users.id')
+            ->where('product_question.product_id','=',"$product->id")->whereRaw('response <> ""')
+            ->where('question','like','%'.$request->SearchQuestion.'%')
+            ->orderBy('product_question.created_at', 'desc')->paginate(5, ['*'], 'questions');
+           
+
+        return view('product',[
+            'product' => $Product,
+            'product_category' => Product_Category::find("$product->category_id"),
+            'reviews' =>$reviews,
+            'total_review' => Product_Review::all()->count(),
+            'questions' => $questions,
+            'query' => $request->SearchQuestion
         ]);
     }
 
@@ -127,7 +163,7 @@ class ProductController extends Controller
     public function product_validation(){
         return request()->validate([
             'name' => 'required|max:255',
-            'description' => 'required|max:500',
+            'description' => 'required|max:50000',
             'category' => 'nullable',
             'price' => 'numeric|required',
             'stock_amount' => 'numeric|required',

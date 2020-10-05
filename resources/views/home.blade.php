@@ -15,7 +15,7 @@
                             <div class="card-body d-flex flex-row flex-wrap">
                                 {{-- card loop --}}
                                 @foreach ($products as $product)
-                                <div class="mein-card">
+                                <div class="mein-card" >
                                     <div id="product-{{$product->id}}" class="carousel slide" data-ride="carousel">
                                         <ol class="carousel-indicators">
                                             {{-- loop to image number
@@ -51,7 +51,7 @@
                                         </a>
                                     </div>
                                     <div class="p-2">
-                                    <p class="my-0 home-product-name">{{$product->name}}</p>
+                                    <p class="my-0 home-product-name"><a href="{{route('product.view',$product)}}" style="color:black">{{$product->name}}</a></p>
                                         <div class="my-0 home-product-price text-left">
                                             <p class="m-0">{{$product->price}}B</p>
                                             <span class="star-ratings-css"

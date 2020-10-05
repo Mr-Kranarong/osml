@@ -76,5 +76,14 @@ return [
     'MaxPrice' => 'สูงสุด',
     'ApplyFilter' => 'ใช้ตัวกรอง',
     'ResetFilter' => 'ยกเลิกตัวกรอง',
-    'Filter' => 'ตัวกรอง'
+    'Filter' => 'ตัวกรอง',
+    'Rating' => 'คะแนน',
+    'Price' => 'ราคา',
+    'BuyAmount' => 'จำนวนที่จะซื้อ',
+    'TotalPrice' => 'ราคารวม',
+    'AddToCart' => 'เพิ่มลงตะกร้า',
+    'AddToWishlist' => 'เพิ่มในรายการที่สนใจ',
+    'ProductReview' => 'ความเห็นเกี่ยวกับสินค้า',
+    'ProductQuestion' => 'สอบถามเกี่ยวกับสินค้า',
+    'SearchQuestion' => 'ค้นหาคำถาม'
 ];

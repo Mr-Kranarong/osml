@@ -42,8 +42,10 @@
                                     class="col-xl-4 col-form-label text-xl-right">{{ __('text.ProductDescription') }}</label>
 
                                 <div class="col-xl-6">
+                                    <div id="descriptionEditor"></div>
+
                                     <textarea id="description" name="description"
-                                        class="form-control @error('description') is-invalid @enderror" rows="3" required
+                                        class="form-control @error('description') is-invalid @enderror d-none" rows="3" required
                                         autocomplete="description" autofocus></textarea>
 
                                     @error('description')
@@ -131,7 +133,7 @@
                                 <a href="{{ url()->previous() }}"
                                     class="btn btn-secondary col-xs-6 ml-auto">{{ __('text.CancelAction') }}</a>
                                 <button type="submit"
-                                    class="btn btn-primary col-xs-6 mr-auto">{{ __('text.ConfirmAction') }}</button>
+                                    class="btn btn-primary col-xs-6 mr-auto" onclick="editortotextarea()">{{ __('text.ConfirmAction') }}</button>
                             </div>
                         </form>
                     </div>
@@ -140,4 +142,28 @@
         </div>
     </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+$(document).ready(function() {
+  $('#descriptionEditor').summernote({
+        tabsize: 1,
+        height: 100,
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['insert', ['link']],
+          ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+      });
+});
+
+function editortotextarea() { 
+    var description = document.getElementById('description');
+    description.value  = $('#descriptionEditor').summernote('code');
+ }
+    </script>
 @endsection
