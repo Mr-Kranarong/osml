@@ -1,0 +1,337 @@
+@extends('layouts.app')
+
+@section('content')
+{{-- {{session()->flush()}} --}}
+{{-- {{dd(session('cart'))}} --}}
+
+{{-- ========================================== GUEST ========================================== --}}
+@guest
+    <div class="container">
+        <div class="row justify-content-center">
+            {{-- CART --}}
+            <div class="col-lg-9">
+            <div class="card">
+                    <div class="card-header">
+                        {{__('text.ProductInCart')}}
+                    </div>
+                    <form action="{{route('cart.remove')}}" method="post">
+                        @csrf
+                        @method('delete')
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover table-striped tm-table-striped-even">
+                                <colgroup>
+                                    <col span="1" style="width: 5%;"><!-- CHECKBOX -->
+                                    <col span="1" style="width: 28%;"><!-- IMG -->
+                                    <col span="1" style="width: 26%;"><!-- NAME - AMOUNT -->
+                                    <col span="1" style="width: 26%;"><!-- NAME - PRICE -->
+                                    <col span="1" style="width: 5%;"><!-- REMOVE -->
+                                </colgroup>
+                                <thead>
+                                    <tr class="tm-bg-gray">
+                                        <th scope="col"><input type="checkbox" id="chk_all" name="chk_all"
+                                                onclick="chkall.call(this)"></th>
+                                        <th scope="col" class="text-center">{{ __('text.Image') }}</th>
+                                        <th scope="col" class="text-center" colspan="2">{{ __('text.ProductInfo') }}</th>
+                                        <th scope="col" class="text-center"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Session::has('cart'))
+                                    @foreach (Session::get('cart',[]) as $id => $item)
+                                    <?php $product = App\Product::firstWhere('id',$item['product_id']) ?>
+                                        <tr>
+                                            <th scope="row" rowspan="2" class="align-middle">
+                                                <input type="checkbox" aria-label="Checkbox" name="chk_id[]"
+                                                class="chkbox" value="{{$product->id}}">
+                                            </th>
+                                            <td class="text-center" rowspan="2">
+                                                @if ($product->image_img)
+                                                <div id="product-{{$product->id}}" class="carousel slide" data-ride="carousel">
+                                                    <ol class="carousel-indicators">
+                                                        {{-- loop to image number
+                                                        --}}
+                                                        <?php $images = explode('|', $product->image_img);$x=0; ?>
+                                                            @foreach ($images as $image)
+                                                            <li data-target="#product-{{$product->id}}" data-slide-to="{{$x}}"></li>
+                                                            <?php $x++ ?>
+                                                            @endforeach
+                                                    </ol>
+                                                    <div class="carousel-inner">
+                                                        {{-- loop to image number
+                                                        --}}
+                                                        <?php $y = 0; ?>
+                                                        @foreach ($images as $image)
+                                                        <div class="carousel-item @if($y==0) active @endif"> <?php $y = 1; ?>
+                                                            <a href="{{ url('images/'.$image) }}" class="venobox"
+                                                                data-gall="product-{{$product->id}}-images">
+                                                                <img class="d-block cart-gallery-image rounded" src="{{ url('images/'.$image) }}">
+                                                            </a>
+                                                        </div>
+                                                        @endforeach
+                                                    </div>
+                                                    <a class="carousel-control-prev" href="#product-{{$product->id}}" role="button" data-slide="prev">
+                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                        <span class="sr-only">Previous</span>
+                                                    </a>
+                                                    <a class="carousel-control-next" href="#product-{{$product->id}}" role="button" data-slide="next">
+                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                        <span class="sr-only">Next</span>
+                                                    </a>
+                                                </div>
+                                                @endif
+                                                @if (!$product->image_img) <img class="d-block home-product-gallery-image"> @endif
+                                            </td>
+                                            <td class="tm-product-name" colspan="2"><a href="{{route('product.view',$product)}}" style="color:black">{{$product->name}}</a></td>
+                                            <td rowspan="2"  class="align-middle text-center">
+                                                <a href="{{route('cart.remove_single', $product->id)}}"><i class="fas fa-trash-alt text-dark"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center mein-font-15">{{__('text.Amount')}}: 
+                                                <input class="rounded border border-success text-center" type="number" name="buy_amount_{{$product->id}}" id="buy_amount_{{$product->id}}" value="{{$item['amount']}}" min="1" max="{{$product->stock_amount}}" onchange="totalprice({{$product->id}},{{$product->stock_amount}},{{$product->price}});ajaxamount({{$product->id}})">
+                                            </td>
+                                            <td class="text-center mein-font-15">{{__('text.TotalPrice')}}: <span id="total_price_{{$product->id}}">{{ $item['amount'] * $product->price}}</span>B</td>
+                                        </tr>
+                                    @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-group row mb-0">
+                            <button type="submit" class="btn btn-sm btn-outline-danger ml-auto col-lg-12 col-xl-4">
+                                {{ __('text.RemoveSelectedFromCart') }}
+                            </button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            {{-- COUPON --}}
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-header">
+                        {{__('text.Promotion')}} & {{__('text.Coupon')}}
+                    </div>
+                    <div class="card-body">
+                        <p class="text-center my-0">{{__('text.TotalFinal')}}</p>
+                        <p class="mein-font-x2 text-center my-0"><span id="currentValue">0</span>B</p>
+                        <p class="text-center my-0 text-muted">-<span id="discountPercent">0</span>% (<s><span id="previousValue">0</span>B</s>)</p>
+                        
+                        <div id="promotionDetails">
+                           
+                        </div>
+
+                        <hr>
+
+                        <button class="btn btn-lg btn-outline-success w-100">Checkout <i class="fas fa-shopping-basket"></i></button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endguest
+{{-- ========================================== GUEST ========================================== --}}
+{{-- ========================================== USER ========================================== --}}
+@auth
+<div class="container">
+    <div class="row justify-content-center">
+        {{-- CART --}}
+        <div class="col-lg-9">
+        <div class="card">
+                <div class="card-header">
+                    {{__('text.ProductInCart')}}
+                </div>
+                <form action="{{route('cart.remove')}}" method="post">
+                    @csrf
+                    @method('delete')
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover table-striped tm-table-striped-even">
+                            <colgroup>
+                                <col span="1" style="width: 5%;"><!-- CHECKBOX -->
+                                <col span="1" style="width: 28%;"><!-- IMG -->
+                                <col span="1" style="width: 26%;"><!-- NAME - AMOUNT -->
+                                <col span="1" style="width: 26%;"><!-- NAME - PRICE -->
+                                <col span="1" style="width: 5%;"><!-- REMOVE -->
+                            </colgroup>
+                            <thead>
+                                <tr class="tm-bg-gray">
+                                    <th scope="col"><input type="checkbox" id="chk_all" name="chk_all"
+                                            onclick="chkall.call(this)"></th>
+                                    <th scope="col" class="text-center">{{ __('text.Image') }}</th>
+                                    <th scope="col" class="text-center" colspan="2">{{ __('text.ProductInfo') }}</th>
+                                    <th scope="col" class="text-center"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $cart = App\Cart::where('user_id', Auth::user()->id)->get() ?>
+                                @if ($cart)
+                                @foreach ($cart as $item)
+                                <?php $product = App\Product::firstWhere('id',$item->product_id) ?>
+                                    <tr>
+                                        <th scope="row" rowspan="2" class="align-middle">
+                                            <input type="checkbox" aria-label="Checkbox" name="chk_id[]"
+                                            class="chkbox" value="{{$product->id}}">
+                                        </th>
+                                        <td class="text-center" rowspan="2">
+                                            @if ($product->image_img)
+                                            <div id="product-{{$product->id}}" class="carousel slide" data-ride="carousel">
+                                                <ol class="carousel-indicators">
+                                                    {{-- loop to image number
+                                                    --}}
+                                                    <?php $images = explode('|', $product->image_img);$x=0; ?>
+                                                        @foreach ($images as $image)
+                                                        <li data-target="#product-{{$product->id}}" data-slide-to="{{$x}}"></li>
+                                                        <?php $x++ ?>
+                                                        @endforeach
+                                                </ol>
+                                                <div class="carousel-inner">
+                                                    {{-- loop to image number
+                                                    --}}
+                                                    <?php $y = 0; ?>
+                                                    @foreach ($images as $image)
+                                                    <div class="carousel-item @if($y==0) active @endif"> <?php $y = 1; ?>
+                                                        <a href="{{ url('images/'.$image) }}" class="venobox"
+                                                            data-gall="product-{{$product->id}}-images">
+                                                            <img class="d-block cart-gallery-image rounded" src="{{ url('images/'.$image) }}">
+                                                        </a>
+                                                    </div>
+                                                    @endforeach
+                                                </div>
+                                                <a class="carousel-control-prev" href="#product-{{$product->id}}" role="button" data-slide="prev">
+                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                                <a class="carousel-control-next" href="#product-{{$product->id}}" role="button" data-slide="next">
+                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </div>
+                                            @endif
+                                            @if (!$product->image_img) <img class="d-block home-product-gallery-image"> @endif
+                                        </td>
+                                        <td class="tm-product-name" colspan="2"><a href="{{route('product.view',$product)}}" style="color:black">{{$product->name}}</a></td>
+                                        <td rowspan="2"  class="align-middle text-center">
+                                            <a href="{{route('cart.remove_single', $product->id)}}"><i class="fas fa-trash-alt text-dark"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center mein-font-15">{{__('text.Amount')}}: 
+                                            <input class="rounded border border-success text-center" type="number" name="buy_amount_{{$product->id}}" id="buy_amount_{{$product->id}}" value="{{$item->amount}}" min="1" max="{{$product->stock_amount}}" onchange="totalprice({{$product->id}},{{$product->stock_amount}},{{$product->price}});ajaxamount({{$product->id}})">
+                                        </td>
+                                        <td class="text-center mein-font-15">{{__('text.TotalPrice')}}: <span id="total_price_{{$product->id}}">{{ $item->amount * $product->price}}</span>B</td>
+                                    </tr>
+                                @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group row mb-0">
+                        <button type="submit" class="btn btn-sm btn-outline-danger ml-auto col-lg-12 col-xl-4">
+                            {{ __('text.RemoveSelectedFromCart') }}
+                        </button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+        {{-- COUPON --}}
+        <div class="col-lg-3">
+            <div class="card">
+                <div class="card-header">
+                    {{__('text.Promotion')}} & {{__('text.Coupon')}}
+                </div>
+                <div class="card-body">
+                    <p class="text-center my-0">{{__('text.TotalFinal')}}</p>
+                    <p class="mein-font-x2 text-center my-0"><span id="currentValue">0</span>B</p>
+                    <p class="text-center my-0 text-muted">-<span id="discountPercent">0</span>% (<s><span id="previousValue">0</span>B</s>)</p>
+                    
+                    <div id="promotionDetails">
+                       
+                    </div>
+
+                    <hr>
+
+                    <p>Coupon</p>
+                    <div class="input-group input-group-sm mb-3">
+                        <input type="text" class="form-control" placeholder="Coupon Code" aria-label="Coupon Code" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary" type="button">Apply</button>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-lg btn-outline-success w-100">Checkout <i class="fas fa-shopping-basket"></i></button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endauth
+{{-- ========================================== USER ========================================== --}}
+
+@endsection
+
+@section('script')
+<script>
+    ajaxfinalize();
+    $(document).ready(function() {
+            $('.venobox').venobox({
+                infinigall: true,
+            });
+        });
+
+    function chkall() {
+        var y = document.getElementsByClassName("chkbox");
+        Array.from(y).forEach(element => {
+            element.checked = this.checked;
+        });
+    }
+
+    function totalprice(product_id,max_amount,price){
+      var amount = $('#buy_amount_'+product_id).get(0);
+      if(amount.value > max_amount){
+        amount.value = max_amount;
+      }
+      $('#total_price_'+product_id).text(amount.value * price);
+    }
+
+    function ajaxamount(product_id){
+        var amount = $('#buy_amount_'+product_id).get(0);
+        $.ajax({
+            type:'put',
+            url:"{{route('cart.update')}}",
+            data:{"_token":"{{csrf_token()}}","product_id":product_id,"buy_amount":amount.value},
+            success:function(data){
+                if(amount.value > data.max_amount){
+                    amount.value = data.max_amount
+                }
+            }
+        });
+        ajaxfinalize();
+    }
+
+    function ajaxfinalize(){
+        $.ajax({
+            type:'get',
+            url:"{{route('cart.finalize')}}",
+            data:{"_token":"{{csrf_token()}}"},
+            success:function(data){
+                $('#currentValue').text(data.total);
+                $('#previousValue').text(data.prevtotal);
+                $('#discountPercent').text((100-((data.total/data.prevtotal)*100)).toFixed(2));
+                $('#promotionDetails').empty();
+                $.each(data.promotion_applied, function (key, x) { 
+                    $('#promotionDetails').append('<p class="text-left my-0 mein-font-14"><span>'+x.promotion_name+'</span> <span>x'+x.count+'</span></p>');
+                    $.each(x.products, function (key, y) { 
+                        console.log(y);
+                        $('#promotionDetails').append('<li class="mein-font-12">'+y+'</li>');
+                    });
+                });
+            }
+        });
+    }
+</script>
+@endsection

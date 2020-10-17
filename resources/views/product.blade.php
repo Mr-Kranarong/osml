@@ -45,34 +45,38 @@
                 </div>
                 {{-- details --}}
                 <div class="col-lg-6 p-4 my-auto">
+                <form action="{{route('cart.add')}}" method="post">
+                  @csrf
+                    <input type="hidden" name="product_id" value="{{$product->id}}">
                       <p class="product-details-text">{{__('text.ProductName')}}: {{$product->name}}</p>
                       <p class="product-details-text">{{__('text.ProductCategory')}}: {{$product_category->name}}</p>
                       <p class="product-details-text">{{__('text.Rating')}}: <span class="star-ratings-css" title=".{{(round($product->rating))}}"></span></p>
                       <p class="product-details-text">{{__('text.InStocks')}}: {{$product->stock_amount}}</p>
                       <p class="product-details-text">{{__('text.PriceEach')}}: {{$product->price}}B</p>
                       <p class="product-details-text">{{__('text.BuyAmount')}}: 
-                          <button class="btn-outline-success border no-outline" onclick="buyamount(0);totalprice()">-</button>
+                          <button type="button" class="btn-outline-success border no-outline" onclick="buyamount(0);totalprice()">-</button>
                           <input class="rounded border border-success text-center" type="number" name="buy_amount" id="buy_amount" value="1" min="1" max="{{$product->stock_amount}}" onchange="totalprice()">
-                          <button  class="btn-outline-success border no-outline" onclick="buyamount(1);totalprice()">+</button>
+                          <button type="button"  class="btn-outline-success border no-outline" onclick="buyamount(1);totalprice()">+</button>
                       </p>
                       <p class="product-details-text">{{__('text.TotalPrice')}}: <span id="total_price">0</span>B</p>
                       <div class="row">
-                        <div class="col-sm-6">
-                          <button class="btn btn-sm btn-outline-success w-100">
+                        <div class="col">
+                          <button type="submit" class="btn btn-sm btn-outline-success w-100">
                             {{__('text.AddToCart')}}
                           </button>
                         </div>
                         @auth
                         <div class="col-sm-6">
-                          <button class="btn btn-sm btn-outline-danger w-100 @if (!$favorite) d-none @endif" id="removeWishlist" onclick="wishlistToggler(0)">
+                          <button type="button" class="btn btn-sm btn-outline-danger w-100 @if (!$favorite) d-none @endif" id="removeWishlist" onclick="wishlistToggler(0)">
                             {{__('text.RemoveFromWishlist')}}
                           </button>
-                          <button class="btn btn-sm btn-outline-warning w-100 @if ($favorite) d-none @endif" id="addWishlist" onclick="wishlistToggler(1)">
+                          <button type="button" class="btn btn-sm btn-outline-warning w-100 @if ($favorite) d-none @endif" id="addWishlist" onclick="wishlistToggler(1)">
                             {{__('text.AddToWishlist')}}
                           </button>
                         </div>
-                      </div>
                         @endauth
+                      </div>
+                    </form>
                 </div>
             </div>
             {{-- description row --}}
@@ -93,7 +97,7 @@
                   {{__('text.ProductReview')}}
                 </div>
                 <div class="card-body">
-                  <p class="product-details-text my-1"><span class="mein-font-x2">@if ($product->rating) {{round($product->rating,1)}} @else 0 @endif/ 5</span> <span class="star-ratings-css" style="font-size: 2.5em" title=".{{(round($product->rating))}}"></span><span class="mein-font-x2">({{$total_review}})</span></p>
+                  <p class="product-details-text my-1"><span class="mein-font-x2">@if ($product->rating) {{round($product->rating,1)}} @else 0 @endif/ 5</span> <span class="star-ratings-css" style="font-size: 2.0em" title=".{{(round($product->rating))}}"></span><span class="mein-font-x2">({{$total_review}})</span></p>
                   @foreach ($reviews as $review)
                   <blockquote class="blockquote text-center">
                     <p class="mb-0">"{{$review->description}}"</p>
@@ -147,11 +151,12 @@
 <script>
   totalprice();
 
-  $(document).ready(function() {
+    $(document).ready(function() {
             $('.venobox').venobox({
                 infinigall: true,
             });
-        });
+            
+    });
 
     function buyamount(type){
       var amount = $('#buy_amount').get(0);

@@ -86,5 +86,14 @@ return [
     'ProductQuestion' => 'Product Inquiries',
     'SearchQuestion' => 'Search Question',
     'AskedBy' => 'Asked by',
-    'RemoveFromWishlist' => 'Remove From Wishlist'
+    'RemoveFromWishlist' => 'Remove From Wishlist',
+    'Image' => 'Image',
+    'ProductInfo' => 'Product Information',
+    'ProductInCart' => 'Product In Cart',
+    'Amount' => 'Amount',
+    'RemoveSelectedFromCart' => 'Remove Selected From Cart',
+    'Promotion' => 'Promotion',
+    'ChangePassword' => 'Change Password',
+    'Optional' => 'Optional',
+    'TotalFinal' => 'Final Price'
 ];

@@ -131,9 +131,9 @@
 
                             <div class="form-group row text-center">
                                 <a href="{{ url()->previous() }}"
-                                    class="btn btn-secondary col-xs-6 ml-auto">{{ __('text.CancelAction') }}</a>
+                                    class="btn btn-secondary col-sm-6 ml-auto">{{ __('text.CancelAction') }}</a>
                                 <button type="submit"
-                                    class="btn btn-primary col-xs-6 mr-auto" onclick="editortotextarea()">{{ __('text.ConfirmAction') }}</button>
+                                    class="btn btn-primary col-sm-6 mr-auto" onclick="editortotextarea()">{{ __('text.ConfirmAction') }}</button>
                             </div>
                         </form>
                     </div>

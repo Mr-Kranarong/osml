@@ -51,6 +51,13 @@ Route::middleware(['auth'])->group(function(){
 //GUEST
 Route::get('/product/{product}', 'ProductController@view')->name('product.view');
 
+Route::get('/cart/finalize', 'CartController@finalize')->name('cart.finalize');
+Route::get('/cart/delete/{chk_id}', 'CartController@remove')->name('cart.remove_single');
+Route::put('/cart', 'CartController@update')->name('cart.update');
+Route::delete('/cart', 'CartController@remove')->name('cart.remove');
+Route::post('/cart', 'CartController@add')->name('cart.add');
+Route::get('/cart', 'CartController@index')->name('cart.index');
+
 Route::get('/filter', 'HomeController@filter')->name('home.filter');
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('lang/{locale}', 'HomeController@lang');

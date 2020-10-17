@@ -94,7 +94,7 @@
 
                                 @if (!Auth::user() || !Auth::user()->hasAccess())
                                     <li class="nav-item {{ Request::is('cart*') ? 'active' : '' }}">
-                                        <a class="nav-link" href="#">{{ __('text.Cart') }}</a>
+                                    <a class="nav-link" href="{{route('cart.index')}}">{{ __('text.Cart') }}</a>
                                     </li>
                                 @endif
                             </ul>
@@ -297,6 +297,9 @@
                             </div>
                         </div>
 
+                        <h6 class="modal-title" >{{__('text.ChangePassword')}} ({{__('text.Optional')}})</h6>
+                        <hr>
+
                         <div class="form-group row">
                             <label for="self-password"
                                 class="col-md-4 col-form-label text-md-right">{{ __('text.Password') }}</label>
@@ -311,6 +314,12 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('text.ConfirmPassword') }}</label>
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation"  placeholder="********************" autocomplete="new-password">
                             </div>
                         </div>
 

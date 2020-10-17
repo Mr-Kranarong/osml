@@ -87,5 +87,14 @@ return [
     'ProductQuestion' => 'สอบถามเกี่ยวกับสินค้า',
     'SearchQuestion' => 'ค้นหาคำถาม',
     'AskedBy' => 'ถามโดย',
-    'RemoveFromWishlist' => 'ลบจากรายการที่สนใจ'
+    'RemoveFromWishlist' => 'ลบจากรายการที่สนใจ',
+    'Image' => 'รูปภาพ',
+    'ProductInfo' => 'ข้อมูลสินค้า',
+    'ProductInCart' => 'สินค้าในตะกร้า',
+    'Amount' => 'จำนวน',
+    'RemoveSelectedFromCart' => 'ลบสินค้าออกจากตะกร้า',
+    'Promotion' => 'โปรโมชั่น',
+    'ChangePassword' => 'เปลี่ยนรหัสผ่าน',
+    'Optional' => 'ไม่จำเป็น',
+    'TotalFinal' => 'ราคารวมสุทธิ'
 ];

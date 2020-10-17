@@ -51,7 +51,7 @@ class UserController extends Controller
             'phone' => ['max:15','min:6','nullable'],
             'email' => ['required','email:rfc,dns'],
             'access' => ['boolean'],
-            'password' => ['nullable','min:8']
+            'password' => ['nullable','min:8','confirmed']
         ]);
     }
 }
