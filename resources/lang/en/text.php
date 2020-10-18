@@ -7,6 +7,7 @@ return [
     'Statistics' => 'Statistics',
     'PromotionPairing' => 'Promotion Pairing',
     'Coupon' => 'Coupon',
+    'CouponCode' => 'Coupon Code',
     'OrdersReviews' => 'Orders & Reviews',
     'Cart' => 'Cart',
     'Settings' => 'Settings',

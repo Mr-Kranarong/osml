@@ -51,6 +51,10 @@ Route::middleware(['auth'])->group(function(){
 //GUEST
 Route::get('/product/{product}', 'ProductController@view')->name('product.view');
 
+Route::get('/po/{id}', 'PurchaseOrderController@view')->name('po.view');
+
+Route::post('/cart/transaction', 'CartController@transaction_completed')->name('cart.transaction_completed');
+Route::post('/cart/coupon', 'CartController@coupon_session')->name('cart.coupon');
 Route::get('/cart/finalize', 'CartController@finalize')->name('cart.finalize');
 Route::get('/cart/delete/{chk_id}', 'CartController@remove')->name('cart.remove_single');
 Route::put('/cart', 'CartController@update')->name('cart.update');

@@ -23,6 +23,7 @@ class CreatePurchaseOrderTable extends Migration
             $table->boolean('processed_status');
             $table->integer('amount');
             $table->decimal('final_price');
+            $table->string('payer_email');
             $table->timestamps();
         });
     }

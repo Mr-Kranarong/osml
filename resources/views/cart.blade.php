@@ -124,7 +124,10 @@
 
                         <hr>
 
-                        <button class="btn btn-lg btn-outline-success w-100">Checkout <i class="fas fa-shopping-basket"></i></button>
+                        {{-- <button class="btn btn-lg btn-outline-success w-100">Checkout <i class="fas fa-shopping-basket"></i></button> --}}
+                        <div id="paypal-checkout-button">
+
+                        </div>
 
                     </div>
                 </div>
@@ -254,15 +257,19 @@
 
                     <hr>
 
-                    <p>Coupon</p>
+                    <p>{{__('text.Coupon')}}</p>
                     <div class="input-group input-group-sm mb-3">
-                        <input type="text" class="form-control" placeholder="Coupon Code" aria-label="Coupon Code" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                          <button class="btn btn-outline-secondary" type="button">Apply</button>
+                        <input type="text" class="form-control" placeholder="{{__('text.CouponCode')}}" aria-label="Coupon Code" oninput="this.value = this.value.replace(/\s/g, '').toUpperCase()"
+                    style="text-transform: uppercase;" id="couponBox" onchange="couponSession()" value="{{session()->get('coupon')}}">
+                        <div class="input-group-append" id="couponMark">
+                          <span class="input-group-text"><i class="fas fa-times"></i></span>
                         </div>
                     </div>
 
-                    <button class="btn btn-lg btn-outline-success w-100">Checkout <i class="fas fa-shopping-basket"></i></button>
+                    {{-- <button class="btn btn-lg btn-outline-success w-100">Checkout <i class="fas fa-shopping-basket"></i></button> --}}
+                    <div id="paypal-checkout-button">
+
+                    </div>
 
                 </div>
             </div>
@@ -275,6 +282,43 @@
 @endsection
 
 @section('script')
+<?php $payment = App\Settings::where('option','paypal_payment')->first() ?>
+<script src="https://www.paypal.com/sdk/js?client-id={{$payment->value}}{{ (session()->get('locale') == 'th') ? '&currency=THB&locale=th_TH' : '&currency=USD&locale=en_US' }}"></script>
+<script id="payment_script">
+    var money = 0;
+    paypal.Buttons({
+        style:{
+            color: 'black'
+        },
+        createOrder: function(data, actions) {
+            ajaxfinalize();
+            return actions.order.create({
+                purchase_units: [{
+                amount: {
+                    value: money
+                }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                $.ajax({
+                    type:'put',
+                    url:"{{route('cart.update')}}",
+                    data:{"_token":"{{csrf_token()}}","product_id":product_id,"buy_amount":amount.value},
+                    success:function(data){
+                        if(amount.value > data.max_amount){
+                            amount.value = data.max_amount
+                        }
+                    }
+                });
+            });
+        },
+        onCancel:function(data){
+
+        }
+    }).render('#paypal-checkout-button');
+</script>
 <script>
     ajaxfinalize();
     $(document).ready(function() {
@@ -326,12 +370,37 @@
                 $.each(data.promotion_applied, function (key, x) { 
                     $('#promotionDetails').append('<p class="text-left my-0 mein-font-14"><span>'+x.promotion_name+'</span> <span>x'+x.count+'</span></p>');
                     $.each(x.products, function (key, y) { 
-                        console.log(y);
                         $('#promotionDetails').append('<li class="mein-font-12">'+y+'</li>');
                     });
                 });
+
+                @auth
+                $('#couponMark').empty();
+                if(data.coupon_status){
+                    $('#couponMark').append('<span class="input-group-text"><i class="fas fa-check"></i></span>');
+                }else{
+                    $('#couponMark').append('<span class="input-group-text"><i class="fas fa-times"></i></span>');
+                }
+                @endauth
+
+                money = data.total;
             }
         });
     }
+
+@auth
+    function couponSession(){
+        var code = $('#couponBox').get(0);
+        $.ajax({
+            type:'post',
+            url:"{{route('cart.coupon')}}",
+            data:{"_token":"{{csrf_token()}}","coupon":code.value},
+            success:function(data){
+                ajaxfinalize();
+                console.log(data.valid)
+            }
+        });
+    }
+@endauth
 </script>
 @endsection
