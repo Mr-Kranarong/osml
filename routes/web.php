@@ -42,6 +42,8 @@ Route::middleware(['admin'])->group(function(){
 
 //USER
 Route::middleware(['auth'])->group(function(){
+    Route::post('/coupon/use', 'CouponController@use')->name('coupon.use');
+
     Route::put('/user/{user}/update_self', 'UserController@update_self')->name('user.update_self');
 
     Route::delete('/favorite/ajax', 'FavoriteController@remove')->name('favorite.remove');
@@ -51,9 +53,11 @@ Route::middleware(['auth'])->group(function(){
 //GUEST
 Route::get('/product/{product}', 'ProductController@view')->name('product.view');
 
-Route::get('/po/{id}', 'PurchaseOrderController@view')->name('po.view');
+Route::get('/po/{po_id}/export', 'PurchaseOrderController@export2pdf')->name('po.export2pdf');
+Route::get('/po/{po_id}', 'PurchaseOrderController@view')->name('po.view');
 
-Route::post('/cart/transaction', 'CartController@transaction_completed')->name('cart.transaction_completed');
+Route::get('/cart/transaction/{orderID}', 'CartController@transaction_completed')->name('cart.transaction_completed');
+Route::post('/cart/address', 'CartController@address_session')->name('cart.guest_address');
 Route::post('/cart/coupon', 'CartController@coupon_session')->name('cart.coupon');
 Route::get('/cart/finalize', 'CartController@finalize')->name('cart.finalize');
 Route::get('/cart/delete/{chk_id}', 'CartController@remove')->name('cart.remove_single');

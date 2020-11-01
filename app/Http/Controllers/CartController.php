@@ -7,6 +7,10 @@ use App\Product;
 use App\Product_Promotion;
 use App\Coupon;
 use App\Used_Coupon;
+use App\PayPalClient;
+use App\Purchase_Order;
+use Exception;
+use PayPalCheckoutSdk\Orders\OrdersGetRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -292,8 +296,89 @@ class CartController extends Controller
         ), 200);
     }
 
-    public function transaction_completed(){
+    public function transaction_completed($orderID){
+        $client = PayPalClient::client();
 
+        try {
+            $response = $client->execute(new OrdersGetRequest($orderID));
+        } catch (Exception $e) {
+            $response = null;
+        }
+
+        if(!$response == null){
+            $po_exist = Purchase_Order::firstWhere('purchase_id',$orderID);
+            if(!$po_exist){
+                //po not exist, add item to db, REDIRECT to po page
+                //See Authorize payment for order for more parameters
+                //https://developer.paypal.com/docs/api/orders/v2/#orders_get
+
+                $orderid = $response->result->id;
+                $status = $response->result->status;
+                $email = $response->result->payer->email_address;
+                // return view('test',[
+                //     'test' => $response
+                // ]);
+                $finalprice = $response->result->purchase_units[0]->amount->value;
+                if($status == "COMPLETED"){
+                    if(!Auth::check()){
+                        //GUEST
+                        $cart = Session::get('cart',[]);
+                        foreach($cart as $id => $item) {
+                            $new_po_item = new Purchase_Order();
+                            $new_po_item->purchase_id = $orderid;
+                            $new_po_item->product_id = $item['product_id'];
+                            $new_po_item->processed_status = false;
+                            $new_po_item->amount = $item['amount'];
+                            $new_po_item->final_price = $finalprice;
+                            $new_po_item->payer_email = $email;
+                            $new_po_item->guest_address = session()->get('address');
+                            $new_po_item->save();
+                            
+                            $update_product = Product::firstWhere('id',$item['product_id']);
+                            $update_product->update([
+                                'stock_amount' => $update_product->stock_amount - $item['amount']
+                            ]);
+                            
+                            Session::forget('cart.'.$id);
+                        }
+                    }else{
+                        //USER
+                        $targets =Cart::where('user_id',Auth::user()->id);
+                        $cart = $targets->get();
+                        foreach($cart as $item) {
+                            $new_po_item = new Purchase_Order();
+                            $new_po_item->purchase_id = $orderid;
+                            $new_po_item->product_id = $item->product_id;
+                            $new_po_item->user_id = Auth::user()->id;
+                            $new_po_item->processed_status = false;
+                            $new_po_item->amount = $item->amount;
+                            $new_po_item->final_price = $finalprice;
+                            $new_po_item->payer_email = $email;
+                            $new_po_item->save();
+
+                            $update_product = Product::firstWhere('id',$item['product_id']);
+                            $update_product->update([
+                                'stock_amount' => $update_product->stock_amount - $item->amount
+                            ]);
+                        }
+
+                        $targets->delete();
+                    }
+                    //redirect to po
+                    request()->session()->forget('coupon');
+                    return redirect(route('po.view', [
+                        'po_id' => $orderid
+                    ]));
+                }else{
+                    return redirect()->back();
+                }
+            }
+            //po already exists - Change to PO index once created
+            return redirect(route('home'));
+        }else{
+            //order id invalid
+            return redirect(route('cart.index'));
+        }
     }
 
     public function coupon_session(){
@@ -304,6 +389,11 @@ class CartController extends Controller
             request()->session()->forget('coupon');
             return response()->json(array('valid'=> false), 200);
         }
+    }
+
+    public function address_session(){
+        session(['address' => request()->guestaddress]);
+        return response()->json(array('valid'=> true), 200);
     }
 
     //VALIDATION

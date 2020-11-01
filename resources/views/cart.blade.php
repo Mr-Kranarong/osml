@@ -118,16 +118,19 @@
                         <p class="mein-font-x2 text-center my-0"><span id="currentValue">0</span>B</p>
                         <p class="text-center my-0 text-muted">-<span id="discountPercent">0</span>% (<s><span id="previousValue">0</span>B</s>)</p>
                         
-                        <div id="promotionDetails">
-                           
-                        </div>
+                        <div id="promotionDetails"></div>
 
+                        @guest
                         <hr>
-
-                        {{-- <button class="btn btn-lg btn-outline-success w-100">Checkout <i class="fas fa-shopping-basket"></i></button> --}}
-                        <div id="paypal-checkout-button">
-
+                        <div>
+                            <p>{{__('text.ShippingAddress')}}</p>
+                            <textarea name="guest_address" id="guest_address" rows="2" class="form-control p-1" onchange="guestAddress()">{{session()->get('address')}}</textarea>
                         </div>
+                        @endguest
+                        
+                        <hr>
+                        {{-- <button class="btn btn-lg btn-outline-success w-100">Checkout <i class="fas fa-shopping-basket"></i></button> --}}
+                        <div id="paypal-checkout-button"></div>
 
                     </div>
                 </div>
@@ -301,17 +304,14 @@
             });
         },
         onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
+            return actions.order.capture().then(function() {
                 $.ajax({
-                    type:'put',
-                    url:"{{route('cart.update')}}",
-                    data:{"_token":"{{csrf_token()}}","product_id":product_id,"buy_amount":amount.value},
-                    success:function(data){
-                        if(amount.value > data.max_amount){
-                            amount.value = data.max_amount
-                        }
-                    }
+                    type:'post',
+                    url:"{{route('coupon.use')}}",
+                    data:{"_token":"{{csrf_token()}}","coupon": $('#couponBox').get(0).value},
+                    success:function(data){}
                 });
+                window.location = "cart/transaction/"+data.orderID;
             });
         },
         onCancel:function(data){
@@ -402,5 +402,19 @@
         });
     }
 @endauth
+
+@guest
+    function guestAddress(){
+        var guestaddress = $('#guest_address').val();
+        $.ajax({
+            type:'post',
+            url:"{{route('cart.guest_address')}}",
+            data:{"_token":"{{csrf_token()}}","guestaddress":guestaddress},
+            success:function(data){
+                console.log(data.valid)
+            }
+        });
+    }
+@endguest
 </script>
 @endsection

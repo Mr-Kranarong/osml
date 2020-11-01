@@ -96,5 +96,11 @@ return [
     'Promotion' => 'Promotion',
     'ChangePassword' => 'Change Password',
     'Optional' => 'Optional',
-    'TotalFinal' => 'Final Price'
+    'TotalFinal' => 'Final Price',
+    'POID' => 'Purchase Order ID',
+    'PODetails' => 'Purchase Order Details',
+    'DateIssue' => 'Date Issued',
+    'ShippingAddress' => 'Shipping Address',
+    'VendorAddress' => 'Vendor Address',
+    'Contact' => 'Contact'
 ];

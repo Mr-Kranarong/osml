@@ -15,7 +15,7 @@ class CreatePurchaseOrderTable extends Migration
     {
         Schema::create('purchase_order', function (Blueprint $table) {
             $table->id();
-            $table->integer('purchase_id');
+            $table->string('purchase_id',500);
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->unsignedBigInteger('product_id');
@@ -24,6 +24,7 @@ class CreatePurchaseOrderTable extends Migration
             $table->integer('amount');
             $table->decimal('final_price');
             $table->string('payer_email');
+            $table->string('guest_address', 600)->nullable();
             $table->timestamps();
         });
     }

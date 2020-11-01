@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Product_Category;
+use App\Used_Coupon;
 use App\Coupon;
 
 class CouponController extends Controller
@@ -37,6 +39,15 @@ class CouponController extends Controller
         ]);
         $coupon->update($this->coupon_validation());
         return redirect()->back();
+    }
+
+    public function use(){
+        $coupon = Coupon::firstWhere('code', request()->session()->get('coupon'));
+        $used_coupon = new Used_Coupon();
+        $used_coupon->user_id = Auth::user()->id;
+        $used_coupon->coupon_id = $coupon->id;
+        $used_coupon->save();
+        return response()->json(array('ok'=> true), 200);
     }
 
     //VALIDATION

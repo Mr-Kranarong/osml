@@ -97,5 +97,11 @@ return [
     'Promotion' => 'โปรโมชั่น',
     'ChangePassword' => 'เปลี่ยนรหัสผ่าน',
     'Optional' => 'ไม่จำเป็น',
-    'TotalFinal' => 'ราคารวมสุทธิ'
+    'TotalFinal' => 'ราคารวมสุทธิ',
+    'POID' => 'หมายเลขคำสั่งซื้อ',
+    'PODetails' => 'รายละเอียดคำสั่งซื้อ',
+    'DateIssue' => 'วันที่ออกคำสั่งซื้อ',
+    'ShippingAddress' => 'ที่อยู่สำหรับการจัดส่ง',
+    'VendorAddress' => 'ที่อยู่ผู้จัดจำหน่าย',
+    'Contact' => 'ติดต่อ'
 ];
