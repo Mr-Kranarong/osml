@@ -103,5 +103,6 @@ return [
     'DateIssue' => 'วันที่ออกคำสั่งซื้อ',
     'ShippingAddress' => 'ที่อยู่สำหรับการจัดส่ง',
     'VendorAddress' => 'ที่อยู่ผู้จัดจำหน่าย',
-    'Contact' => 'ติดต่อ'
+    'Contact' => 'ติดต่อ',
+    'RecommendedProduct' => 'สินค้าที่คุณอาจสนใจ'
 ];

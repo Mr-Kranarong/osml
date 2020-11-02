@@ -9,6 +9,8 @@ use App\Coupon;
 use App\Used_Coupon;
 use App\PayPalClient;
 use App\Purchase_Order;
+use App\Settings;
+use Phpml\Association\Apriori;
 use Exception;
 use PayPalCheckoutSdk\Orders\OrdersGetRequest;
 use Illuminate\Http\Request;
@@ -19,7 +21,40 @@ class CartController extends Controller
 {
     //VIEW
     public function index(){
-        return view('cart');
+        if(!Auth::check()){
+            //GUEST
+            $product_id_a = array();
+            $cart = Session::get('cart',[]);
+            foreach($cart as $id => $item) {
+                $product_id_a[] = $item['product_id'];
+            }
+        }else{
+            //USER
+            $product_id_a = Cart::where('user_id', Auth::user()->id)->pluck('product_id')->toArray();
+        }
+
+        if($product_id_a != null){ 
+            $recommends = $this->apriori_recommendation($product_id_a); 
+            if($recommends == null) goto end;
+            foreach($recommends as $array){
+                $product_id_b = array();
+                foreach($array as $id){
+                    $product_id_b[] = $id;
+                }
+                break;
+                //get first set only
+            }
+            $recommends = Product::find($product_id_b);
+        }else{ 
+            $recommends = '';
+        };
+        end:
+
+
+        
+        return view('cart', [
+            'recommends' => $recommends
+        ]);
     }
 
     //FUNCTION
@@ -394,6 +429,37 @@ class CartController extends Controller
     public function address_session(){
         session(['address' => request()->guestaddress]);
         return response()->json(array('valid'=> true), 200);
+    }
+
+    public function apriori_recommendation($productID_array){
+        $result = Purchase_Order::all();
+
+        $samples = array();
+        $subarray = array();
+        $first = true;
+        $purchaseID = '';
+        foreach ($result as $purchaseLog) {
+            if ($purchaseLog->purchase_id != $purchaseID && $first == false) {
+                $purchaseID = $purchaseLog->purchase_id;
+                array_push($samples, $subarray);
+                $subarray = array();
+            } else {
+                $purchaseID = $purchaseLog->purchase_id;
+                $first = false;
+            }
+            array_push($subarray, $purchaseLog->product_id);
+        }
+
+        $labels  = [];
+
+        $support = (float) Settings::firstWhere('option','apriori_support')->value('value');
+        $confidence = (float) Settings::firstWhere('option','apriori_confidence')->value('value');
+
+        $reg = new Apriori($support, $confidence);
+        $reg->train($samples, $labels);
+        $res = $reg->predict($productID_array);
+
+        return $res;
     }
 
     //VALIDATION

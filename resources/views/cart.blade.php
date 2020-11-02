@@ -3,6 +3,7 @@
 @section('content')
 {{-- {{session()->flush()}} --}}
 {{-- {{dd(session('cart'))}} --}}
+{{-- {{ dd($recommends) }} --}}
 
 {{-- ========================================== GUEST ========================================== --}}
 @guest
@@ -106,6 +107,71 @@
                     </div>
                     </form>
                 </div>
+
+                @if ($recommends)
+                {{-- Recommend --}}
+                <div class="card">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card-header">
+                                {{ __('text.RecommendedProduct') }}
+                                {{-- SORT DROPDOWN HERE --}}
+                            </div>
+                            <div class="card-body d-flex flex-row flex-wrap">
+                                {{-- card loop --}}
+                                @foreach ($recommends as $recommend)
+                                <div class="mein-card" >
+                                    @if ($recommend->image_img)
+                                    <div id="recommend-{{$recommend->id}}" class="carousel slide" data-ride="carousel">
+                                        <ol class="carousel-indicators">
+                                            {{-- loop to image number
+                                            --}}
+                                            <?php $recommend_images = explode('|', $recommend->image_img);$x=0; ?>
+                                                @foreach ($recommend_images as $recommend_image)
+                                                <li data-target="#recommend-{{$recommend->id}}" data-slide-to="{{$x}}"></li>
+                                                <?php $x++ ?>
+                                                @endforeach
+                                        </ol>
+                                        <div class="carousel-inner">
+                                            {{-- loop to image number
+                                            --}}
+                                            <?php $y = 0; ?>
+                                            @foreach ($recommend_images as $recommend_image)
+                                            <div class="carousel-item @if($y==0) active @endif"> <?php $y = 1; ?>
+                                                <a href="{{ url('images/'.$recommend_image) }}" class="venobox"
+                                                    data-gall="recommend-{{$recommend->id}}-images">
+                                                    <img class="d-block home-product-gallery-image" src="{{ url('images/'.$recommend_image) }}">
+                                                </a>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                        <a class="carousel-control-prev" href="#recommend-{{$recommend->id}}" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#recommend-{{$recommend->id}}" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </div>
+                                    @endif
+                                    @if (!$recommend->image_img) <img class="d-block home-product-gallery-image"> @endif
+                                    <div class="p-2">
+                                    <p class="my-0 home-product-name"><a href="{{route('product.view',$recommend)}}" style="color:black">{{$recommend->name}}</a></p>
+                                        <div class="my-0 home-product-price text-left">
+                                            <p class="m-0">{{$recommend->price}}B</p>
+                                            {{-- <span class="star-ratings-css"
+                                                title=".{{(round($recommend->rating))}}"></span> --}}
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                                {{-- end card loop --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
             </div>
             {{-- COUPON --}}
             <div class="col-lg-3">
@@ -242,6 +308,71 @@
                 </div>
                 </form>
             </div>
+            
+            @if ($recommends)
+                {{-- Recommend --}}
+                <div class="card">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card-header">
+                                {{ __('text.RecommendedProduct') }}
+                                {{-- SORT DROPDOWN HERE --}}
+                            </div>
+                            <div class="card-body d-flex flex-row flex-wrap">
+                                {{-- card loop --}}
+                                @foreach ($recommends as $recommend)
+                                <div class="mein-card" >
+                                    @if ($recommend->image_img)
+                                    <div id="recommend-{{$recommend->id}}" class="carousel slide" data-ride="carousel">
+                                        <ol class="carousel-indicators">
+                                            {{-- loop to image number
+                                            --}}
+                                            <?php $recommend_images = explode('|', $recommend->image_img);$x=0; ?>
+                                                @foreach ($recommend_images as $recommend_image)
+                                                <li data-target="#recommend-{{$recommend->id}}" data-slide-to="{{$x}}"></li>
+                                                <?php $x++ ?>
+                                                @endforeach
+                                        </ol>
+                                        <div class="carousel-inner">
+                                            {{-- loop to image number
+                                            --}}
+                                            <?php $y = 0; ?>
+                                            @foreach ($recommend_images as $recommend_image)
+                                            <div class="carousel-item @if($y==0) active @endif"> <?php $y = 1; ?>
+                                                <a href="{{ url('images/'.$recommend_image) }}" class="venobox"
+                                                    data-gall="recommend-{{$recommend->id}}-images">
+                                                    <img class="d-block home-product-gallery-image" src="{{ url('images/'.$recommend_image) }}">
+                                                </a>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                        <a class="carousel-control-prev" href="#recommend-{{$recommend->id}}" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#recommend-{{$recommend->id}}" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </div>
+                                    @endif
+                                    @if (!$recommend->image_img) <img class="d-block home-product-gallery-image"> @endif
+                                    <div class="p-2">
+                                    <p class="my-0 home-product-name"><a href="{{route('product.view',$recommend)}}" style="color:black">{{$recommend->name}}</a></p>
+                                        <div class="my-0 home-product-price text-left">
+                                            <p class="m-0">{{$recommend->price}}B</p>
+                                            {{-- <span class="star-ratings-css"
+                                                title=".{{(round($recommend->rating))}}"></span> --}}
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                                {{-- end card loop --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
         </div>
         {{-- COUPON --}}
         <div class="col-lg-3">

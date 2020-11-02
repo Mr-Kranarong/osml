@@ -102,5 +102,6 @@ return [
     'DateIssue' => 'Date Issued',
     'ShippingAddress' => 'Shipping Address',
     'VendorAddress' => 'Vendor Address',
-    'Contact' => 'Contact'
+    'Contact' => 'Contact',
+    'RecommendedProduct' => 'Products you might be interested'
 ];
