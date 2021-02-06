@@ -89,7 +89,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="text-center mein-font-15">{{__('text.Amount')}}: 
+                                            <td class="text-center mein-font-15">{{__('text.Amount')}}:
                                                 <input class="rounded border border-success text-center" type="number" name="buy_amount_{{$product->id}}" id="buy_amount_{{$product->id}}" value="{{$item['amount']}}" min="1" max="{{$product->stock_amount}}" onchange="totalprice({{$product->id}},{{$product->stock_amount}},{{$product->price}});ajaxamount({{$product->id}})">
                                             </td>
                                             <td class="text-center mein-font-15">{{__('text.TotalPrice')}}: <span id="total_price_{{$product->id}}">{{ $item['amount'] * $product->price}}</span>B</td>
@@ -183,7 +183,7 @@
                         <p class="text-center my-0">{{__('text.TotalFinal')}}</p>
                         <p class="mein-font-x2 text-center my-0"><span id="currentValue">0</span>B</p>
                         <p class="text-center my-0 text-muted">-<span id="discountPercent">0</span>% (<s><span id="previousValue">0</span>B</s>)</p>
-                        
+
                         <div id="promotionDetails"></div>
 
                         @guest
@@ -193,7 +193,7 @@
                             <textarea name="guest_address" id="guest_address" rows="2" class="form-control p-1" onchange="guestAddress()">{{session()->get('address')}}</textarea>
                         </div>
                         @endguest
-                        
+
                         <hr>
                         {{-- <button class="btn btn-lg btn-outline-success w-100">Checkout <i class="fas fa-shopping-basket"></i></button> --}}
                         <div id="paypal-checkout-button"></div>
@@ -290,7 +290,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="text-center mein-font-15">{{__('text.Amount')}}: 
+                                        <td class="text-center mein-font-15">{{__('text.Amount')}}:
                                             <input class="rounded border border-success text-center" type="number" name="buy_amount_{{$product->id}}" id="buy_amount_{{$product->id}}" value="{{$item->amount}}" min="1" max="{{$product->stock_amount}}" onchange="totalprice({{$product->id}},{{$product->stock_amount}},{{$product->price}});ajaxamount({{$product->id}})">
                                         </td>
                                         <td class="text-center mein-font-15">{{__('text.TotalPrice')}}: <span id="total_price_{{$product->id}}">{{ $item->amount * $product->price}}</span>B</td>
@@ -308,7 +308,7 @@
                 </div>
                 </form>
             </div>
-            
+
             @if ($recommends)
                 {{-- Recommend --}}
                 <div class="card">
@@ -384,9 +384,9 @@
                     <p class="text-center my-0">{{__('text.TotalFinal')}}</p>
                     <p class="mein-font-x2 text-center my-0"><span id="currentValue">0</span>B</p>
                     <p class="text-center my-0 text-muted">-<span id="discountPercent">0</span>% (<s><span id="previousValue">0</span>B</s>)</p>
-                    
+
                     <div id="promotionDetails">
-                       
+
                     </div>
 
                     <hr>
@@ -417,7 +417,7 @@
 
 @section('script')
 <?php $payment = App\Settings::where('option','paypal_payment')->first() ?>
-<script src="https://www.paypal.com/sdk/js?client-id={{$payment->value}}{{ (session()->get('locale') == 'th') ? '&currency=THB&locale=th_TH' : '&currency=USD&locale=en_US' }}"></script>
+<script src="https://www.paypal.com/sdk/js?client-id={{$payment->value}}{{ (session()->get('locale') == 'th') ? '&currency=THB&locale=th_TH' : '&currency=THB&locale=en_US' }}"></script>
 <script id="payment_script">
     var money = 0;
     paypal.Buttons({
@@ -498,9 +498,9 @@
                 $('#previousValue').text(data.prevtotal);
                 $('#discountPercent').text((100-((data.total/data.prevtotal)*100)).toFixed(2));
                 $('#promotionDetails').empty();
-                $.each(data.promotion_applied, function (key, x) { 
+                $.each(data.promotion_applied, function (key, x) {
                     $('#promotionDetails').append('<p class="text-left my-0 mein-font-14"><span>'+x.promotion_name+'</span> <span>x'+x.count+'</span></p>');
-                    $.each(x.products, function (key, y) { 
+                    $.each(x.products, function (key, y) {
                         $('#promotionDetails').append('<li class="mein-font-12">'+y+'</li>');
                     });
                 });

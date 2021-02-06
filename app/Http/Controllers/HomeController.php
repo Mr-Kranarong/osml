@@ -44,15 +44,15 @@ class HomeController extends Controller
     public function filter(Request $request){
         //name (name,desc), category, rating, min, max
         $product = Product::leftJoin('product_review','product_review.product_id','=','product.id')
-        ->select('product.*',DB::raw('AVG(product_review.rating) as rating'))
+        ->select('product.*',DB::raw('AVG(CAST(product_review.rating as Float)) as rating'))
         ->groupBy('product.id')->orderByRaw("stock_amount=0, product.created_at DESC");
 
         if($request->name) $product->where(function ($query) use ($request) { $query->where('name','like','%'.$request->name.'%')->orWhere('product.description','like','%'.$request->name.'%');});//MATCHN AGAINST DESCRIPT PRONE TO ERROR
         if($request->category) $product->where('category_id','=',$request->category);
-        if($request->rating) $product->where('rating','>=',$request->rating);
+        if($request->rating) $product->where('rating', '>=', (float) $request->rating); //BUUUUUUUUUUUUUUUUUUUUUUG
         if($request->min_price) $product->where('price','>=',$request->min_price);
         if($request->max_price) $product->where('price','<=',$request->max_price);
-
+        
         return view('home', [
             'products' => $product->paginate(12),
             'total' => $product->count(),

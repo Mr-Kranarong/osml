@@ -12,6 +12,19 @@ use PDF;
 class PurchaseOrderController extends Controller
 {
     //VIEW
+    public function index(){
+        $po = '';
+
+        if(Auth::check()){
+            $po = Purchase_Order::where('user_id','like', Auth::user()->id)->distinct('purchase_id')->orderBy('created_at', 'DESC');;
+        }
+
+        return view('purchase_order.index',[
+            'po' => $po->get(),
+            'total' => $po->count()
+        ]);
+    }
+
     public function view($po_id){
         $po = $this->getPO($po_id);
 

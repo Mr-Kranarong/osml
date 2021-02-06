@@ -8,7 +8,8 @@ return [
     'PromotionPairing' => 'Promotion Pairing',
     'Coupon' => 'Coupon',
     'CouponCode' => 'Coupon Code',
-    'OrdersReviews' => 'Orders & Reviews',
+    'Orders' => 'Orders',
+    'Inquiries' => 'Inquiries',
     'Cart' => 'Cart',
     'Settings' => 'Settings',
     'Signin' => 'Sign-in',
@@ -103,5 +104,11 @@ return [
     'ShippingAddress' => 'Shipping Address',
     'VendorAddress' => 'Vendor Address',
     'Contact' => 'Contact',
-    'RecommendedProduct' => 'Products you might be interested'
+    'RecommendedProduct' => 'Products you might be interested',
+    'Processing' => 'Processing',
+    'Processed' => 'Processed',
+    'Unit' => 'Unit',
+    'Receipt' => 'Receipt',
+    'WriteReview' => 'Write Review',
+    'Content' => 'Content'
 ];

@@ -9,7 +9,8 @@ return [
     'PromotionPairing' => 'จับคู่โปรโมชั่น',
     'Coupon' => 'ส่วนลด',
     'CouponCode' => 'โค้ดส่วนลด',
-    'OrdersReviews' => 'คำสั่งซื้อและคำวิจารณ์',
+    'Orders' => 'คำสั่งซื้อ',
+    'Inquiries' => 'ข้อสงสัย',
     'Cart' => 'ตะกร้าสินค้า',
     'Settings' => 'ตั้งค่า',
     'Signin' => 'ส่วนของสมาชิก',
@@ -104,5 +105,11 @@ return [
     'ShippingAddress' => 'ที่อยู่สำหรับการจัดส่ง',
     'VendorAddress' => 'ที่อยู่ผู้จัดจำหน่าย',
     'Contact' => 'ติดต่อ',
-    'RecommendedProduct' => 'สินค้าที่คุณอาจสนใจ'
+    'RecommendedProduct' => 'สินค้าที่คุณอาจสนใจ',
+    'Processing' => 'กำลังดำเนินการ',
+    'Processed' => 'ดำเนินการเรียบร้อย',
+    'Unit' => 'หน่วย',
+    'Receipt' => 'ใบเสร็จ',
+    'WriteReview' => 'เขียนคำวิจารณ์',
+    'Content' => 'เนื้อความ'
 ];

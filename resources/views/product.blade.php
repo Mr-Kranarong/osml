@@ -53,7 +53,7 @@
                       <p class="product-details-text">{{__('text.Rating')}}: <span class="star-ratings-css" title=".{{(round($product->rating))}}"></span></p>
                       <p class="product-details-text">{{__('text.InStocks')}}: {{$product->stock_amount}}</p>
                       <p class="product-details-text">{{__('text.PriceEach')}}: {{$product->price}}B</p>
-                      <p class="product-details-text">{{__('text.BuyAmount')}}: 
+                      <p class="product-details-text">{{__('text.BuyAmount')}}:
                           <button type="button" class="btn-outline-success border no-outline" onclick="buyamount(0);totalprice()">-</button>
                           <input class="rounded border border-success text-center" type="number" name="buy_amount" id="buy_amount" value="1" min="1" max="{{$product->stock_amount}}" onchange="totalprice()">
                           <button type="button"  class="btn-outline-success border no-outline" onclick="buyamount(1);totalprice()">+</button>
@@ -93,8 +93,27 @@
             {{-- review row --}}
             <div class="row">
               <div class="col">
-                <div class="card-header">
-                  {{__('text.ProductReview')}}
+                <div class="card-header row">
+                  <div class="col-6">
+                    {{__('text.ProductReview')}}
+                  </div>
+                  @auth
+                  <?php
+                        $canReview = App\Purchase_Order::where('product_id','like',"$product->id")->where('user_id','like',Auth::user()->id)->count();
+                        $hasReviewed = App\Product_Review::where('product_id','like',"$product->id")->where('user_id','like',Auth::user()->id)->count();
+                  ?>
+                  @if ($canReview > 0)
+                    @if ($hasReviewed > 0)
+                    @else
+                    <div class="col-6 text-right">
+                        <button data-backdrop="static" data-keyboard="false" data-toggle="modal"
+                                    data-target="#write-review-modal"
+                                    class="btn btn-sm btn-outline-primary py-1">{{ __('text.WriteReview') }}</button>
+                    </div>
+                    @endif
+                  @endif
+
+                  @endauth
                 </div>
                 <div class="card-body">
                   <p class="product-details-text my-1"><span class="mein-font-x2">@if ($product->rating) {{round($product->rating,1)}} @else 0 @endif/ 5</span> <span class="star-ratings-css" style="font-size: 2.0em" title=".{{(round($product->rating))}}"></span><span class="mein-font-x2">({{$total_review}})</span></p>
@@ -145,6 +164,56 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="write-review-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <form action="{{ route('review.create',['product_id' => $product->id]) }}" method="POST" id="form-write-review">
+                    @csrf
+                    <div class="modal-header">
+                        <h6 class="modal-title" id="write-review-modal-label">{{ __('text.WriteReview') }}</h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                            onclick="document.getElementById('form-write-review').reset();formStateReset();">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="content" class="col-form-label">{{ __('text.Content') }}</label>
+                                    <textarea id="content" class="form-control @error('content') is-invalid @enderror"
+                                        name="content" value="" required autocomplete="content" autofocus rows="2"></textarea>
+                                    @error('content')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label id="reviewratingText" for="reviewrating" class="col-form-label">{{ __('text.Rating') }}</label>
+                                    <input class="mein-width-100" type="range" id="reviewrating" name="reviewrating" min="1" max="5">
+                                    @error('reviewrating')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                            onclick="document.getElementById('form-create-coupon').reset();formStateReset();">{{ __('text.CancelAction') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('text.ConfirmAction') }}</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
 @endsection
 
 @section('script')
@@ -155,7 +224,7 @@
             $('.venobox').venobox({
                 infinigall: true,
             });
-            
+
     });
 
     function buyamount(type){

@@ -80,8 +80,8 @@ class ProductController extends Controller
         return view('product',[
             'product' => $Product,
             'product_category' => Product_Category::find("$product->category_id"),
-            'reviews' =>$reviews->paginate(2, ['*'], 'reviews'),
             'total_review' => $reviews->count(),
+            'reviews' =>$reviews->paginate(2, ['*'], 'reviews'),
             'questions' => $questions,
             'query' => $request->SearchQuestion,
             'favorite' => isset($favorite) ? $favorite:null

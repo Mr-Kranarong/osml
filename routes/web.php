@@ -19,7 +19,7 @@ Route::middleware(['admin'])->group(function(){
     Route::delete('/product/category/{category}', 'ProductController@category_delete')->name('product.category.delete');
     Route::put('/product/category/{category}', 'ProductController@category_update')->name('product.category.update');
     Route::get('/product/category', 'ProductController@category_index')->name('product.category.index');
-    
+
     Route::post('/product/create', 'ProductController@store')->name('product.store');
     Route::get('/product/create', 'ProductController@create')->name('product.create');
     Route::delete('/product/{product}/delete_image', 'ProductController@delete_image')->name('product.delete_image');
@@ -42,6 +42,10 @@ Route::middleware(['admin'])->group(function(){
 
 //USER
 Route::middleware(['auth'])->group(function(){
+    Route::post('/review', 'ProductReviewController@create')->name('review.create');
+
+    Route::get('/order', 'PurchaseOrderController@index')->name('po.index');
+
     Route::post('/coupon/use', 'CouponController@use')->name('coupon.use');
 
     Route::put('/user/{user}/update_self', 'UserController@update_self')->name('user.update_self');
@@ -53,8 +57,8 @@ Route::middleware(['auth'])->group(function(){
 //GUEST
 Route::get('/product/{product}', 'ProductController@view')->name('product.view');
 
-Route::get('/po/{po_id}/export', 'PurchaseOrderController@export2pdf')->name('po.export2pdf');
-Route::get('/po/{po_id}', 'PurchaseOrderController@view')->name('po.view');
+Route::get('/order/{po_id}/export', 'PurchaseOrderController@export2pdf')->name('po.export2pdf');
+Route::get('/order/{po_id}', 'PurchaseOrderController@view')->name('po.view');
 
 Route::get('/cart/transaction/{orderID}', 'CartController@transaction_completed')->name('cart.transaction_completed');
 Route::post('/cart/address', 'CartController@address_session')->name('cart.guest_address');

@@ -78,15 +78,18 @@
                                 @endauth
 
                                 @auth
-                                    <li class="nav-item {{ Request::is('orders_reviews*') ? 'active' : '' }}">
-                                        <a class="nav-link" href="#">{{ __('text.OrdersReviews') }}</a>
+                                    <li class="nav-item {{ Request::is('order*') ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('po.index') }}">{{ __('text.Orders') }}</a>
                                     </li>
 
                                     @if (Auth::user()->hasAccess())
-                                        <li class="nav-item {{ Request::is('statistics*') ? 'active' : '' }}">
+                                        <li class="nav-item {{ Request::is('inquir*') ? 'active' : '' }}">
+                                            <a class="nav-link" href="#">{{ __('text.Inquiries') }}</a>
+                                        </li>
+                                        <li class="nav-item {{ Request::is('statistic*') ? 'active' : '' }}">
                                             <a class="nav-link" href="#">{{ __('text.Statistics') }}</a>
                                         </li>
-                                        <li class="nav-item {{ Request::is('settings*') ? 'active' : '' }}">
+                                        <li class="nav-item {{ Request::is('setting*') ? 'active' : '' }}">
                                             <a class="nav-link" href="#">{{ __('text.Settings') }}</a>
                                         </li>
                                     @endif
@@ -169,8 +172,8 @@
             </footer>
         </div>
     </div>
-    <iframe width="0%" height="0" scrolling="no" frameborder="no" allow="autoplay" id="scp"
-    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2960154&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false"></iframe>
+    {{-- <iframe width="0%" height="0" scrolling="no" frameborder="no" allow="autoplay" id="scp"
+    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2960154&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false"></iframe> --}}
     <script src="{{ url('js/jquery-3.3.1.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <!-- https://jquery.com/download/ -->
@@ -196,14 +199,14 @@
 
     </script>
 
-    <script src="https://w.soundcloud.com/player/api.js"></script>
+    {{-- <script src="https://w.soundcloud.com/player/api.js"></script>
     <script>
         var widget = SC.Widget(document.getElementById("scp"));
         widget.bind(SC.Widget.FINISH, function() {
             widget.seekTo(0);
             widget.play();
         });
-    </script>
+    </script> --}}
 
     @yield('script')
 </body>

@@ -34,6 +34,7 @@ class CartController extends Controller
         }
 
         if($product_id_a != null){ 
+            //FIND RELEVANT PRODUCTS
             $recommends = $this->apriori_recommendation($product_id_a); 
             if($recommends == null) goto end;
             foreach($recommends as $array){
@@ -41,8 +42,6 @@ class CartController extends Controller
                 foreach($array as $id){
                     $product_id_b[] = $id;
                 }
-                break;
-                //get first set only
             }
             $recommends = Product::find($product_id_b);
         }else{ 
@@ -452,10 +451,10 @@ class CartController extends Controller
 
         $labels  = [];
 
-        $support = (float) Settings::firstWhere('option','apriori_support')->value('value');
-        $confidence = (float) Settings::firstWhere('option','apriori_confidence')->value('value');
+        $support = Settings::firstWhere('option','apriori_support');
+        $confidence = Settings::firstWhere('option','apriori_confidence');
 
-        $reg = new Apriori($support, $confidence);
+        $reg = new Apriori((float) $support->value, (float) $confidence->value);
         $reg->train($samples, $labels);
         $res = $reg->predict($productID_array);
 

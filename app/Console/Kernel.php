@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\TrainAprioriModel::class,
+        // Commands\TrainAprioriModel::class,
+        Commands\ExpirationChecking::class,
     ];
 
     /**
