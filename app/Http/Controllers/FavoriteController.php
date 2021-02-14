@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
 {
+    //FUNCTION
     public function add(){
         // Favorite::insert([
         //     'user_id' => Auth::user()->id,
@@ -17,7 +18,7 @@ class FavoriteController extends Controller
         $favorite->user_id = Auth::user()->id;
         $favorite->product_id = request()->product_id;
         $favorite->save();
-        
+
         return response()->json(array('msg'=> 'operation successful'), 200);
     }
     public function remove(){

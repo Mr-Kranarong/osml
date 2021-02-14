@@ -99,7 +99,7 @@
                   </div>
                   @auth
                   <?php
-                        $canReview = App\Purchase_Order::where('product_id','like',"$product->id")->where('user_id','like',Auth::user()->id)->count();
+                        $canReview = App\Purchase_Order::where('product_id','like',"$product->id")->where('processed_status','=',"$product->id")->where('user_id','like',Auth::user()->id)->count();
                         $hasReviewed = App\Product_Review::where('product_id','like',"$product->id")->where('user_id','like',Auth::user()->id)->count();
                   ?>
                   @if ($canReview > 0)
@@ -160,11 +160,21 @@
                   @endforeach
                   {{ $questions->appends(['reviews' => $reviews->currentPage()])->links() }}
                 </div>
+                @auth
+                <div class="card-footer row">
+                    <div class="col text-right">
+                        <button data-backdrop="static" data-keyboard="false" data-toggle="modal"
+                                    data-target="#write-question-modal"
+                                    class="btn btn-sm btn-outline-primary py-1">{{ __('text.WriteQuestion') }}</button>
+                    </div>
+                </div>
+                @endauth
               </div>
             </div>
         </div>
     </div>
 
+    @auth
     <div class="modal fade" id="write-review-modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
@@ -214,6 +224,48 @@
 
         </div>
     </div>
+
+    <div class="modal fade" id="write-question-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <form action="{{ route('question.create',['product_id' => $product->id]) }}" method="POST" id="form-write-question">
+                    @csrf
+                    <div class="modal-header">
+                        <h6 class="modal-title" id="write-question-modal-label">{{ __('text.WriteQuestion') }}</h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                            onclick="document.getElementById('form-write-question').reset();formStateReset();">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="content" class="col-form-label">{{ __('text.Content') }}</label>
+                                    <textarea id="content" class="form-control @error('content') is-invalid @enderror"
+                                        name="content" value="" required autocomplete="content" autofocus rows="2"></textarea>
+                                    @error('content')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                            onclick="document.getElementById('form-create-coupon').reset();formStateReset();">{{ __('text.CancelAction') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('text.ConfirmAction') }}</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    @endauth
 @endsection
 
 @section('script')

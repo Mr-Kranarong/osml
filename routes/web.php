@@ -15,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 
 //ADMIN
 Route::middleware(['admin'])->group(function(){
+    Route::delete('/inquiry', 'ProductQuestionController@delete')->name('question.delete');
+    Route::post('/inquiry', 'ProductQuestionController@answer')->name('question.answer');
+    Route::get('/inquiry', 'ProductQuestionController@index')->name('question.index');
+
+    Route::post('/order/refunded', 'PurchaseOrderController@refunded')->name('po.refunded');
+    Route::post('/order/processed', 'PurchaseOrderController@processed')->name('po.processed');
+
     Route::post('/product/category/create', 'ProductController@category_create')->name('product.category.create');
     Route::delete('/product/category/{category}', 'ProductController@category_delete')->name('product.category.delete');
     Route::put('/product/category/{category}', 'ProductController@category_update')->name('product.category.update');
@@ -42,6 +49,8 @@ Route::middleware(['admin'])->group(function(){
 
 //USER
 Route::middleware(['auth'])->group(function(){
+    Route::post('/question', 'ProductQuestionController@create')->name('question.create');
+
     Route::post('/review', 'ProductReviewController@create')->name('review.create');
 
     Route::get('/order', 'PurchaseOrderController@index')->name('po.index');

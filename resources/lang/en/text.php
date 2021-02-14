@@ -110,5 +110,13 @@ return [
     'Unit' => 'Unit',
     'Receipt' => 'Receipt',
     'WriteReview' => 'Write Review',
-    'Content' => 'Content'
+    'WriteQuestion' => 'Ask Question',
+    'Content' => 'Content',
+    'Refunded' => 'Refunded',
+    'PendingOrder' => 'Pending Orders',
+    'Tel' => 'Tel',
+    'Date' => 'Date',
+    'Member' => 'Member',
+    'SubmitAnswer' => 'Submit Answer',
+    'DeleteQuestion' => 'Delete Question'
 ];

@@ -20,7 +20,7 @@ return [
     'EditProfile' => 'แก้ไขข้อมูลผู้ใช้',
     'Language' => 'ภาษา',
     'Address' => 'ที่อยู่',
-    'Email' => 'ที่อยู่อีเมล',
+    'Email' => 'อีเมล',
     'Password' => 'รหัสผ่าน',
     'Remember' => 'จดจำการเข้าใช้งาน',
     'Forgot' => 'ลืมรหัสผ่าน',
@@ -111,5 +111,13 @@ return [
     'Unit' => 'หน่วย',
     'Receipt' => 'ใบเสร็จ',
     'WriteReview' => 'เขียนคำวิจารณ์',
-    'Content' => 'เนื้อความ'
+    'WriteQuestion' => 'สอบถามเพิ่มเติม',
+    'Content' => 'เนื้อความ',
+    'Refunded' => 'คืนเงิน',
+    'PendingOrder' => 'คำสั่งซื้อรอการประมวลผล',
+    'Tel' => 'ติดต่อ',
+    'Date' => 'วันที่',
+    'Member' => 'สมาชิก',
+    'SubmitAnswer' => 'ยืนยันคำตอบ',
+    'DeleteQuestion' => 'ลบคำถาม'
 ];

@@ -100,14 +100,14 @@
                     </tr>
                     <?php $real+=$item->amount*$item->price; ?>
                     @endforeach
-                   @if ($real > $po_items[0]->final_price)
+                   {{-- @if ($real > $po_items[0]->final_price) --}}
                     <tr>
                         <td class="mein-font-14"></td>
                         <td class="mein-font-14" colspan="2">{{__('text.Promotion')}} & {{__('text.Coupon')}}</td>
                         <td class="mein-font-14 text-right">-{{ number_format(round($real-$po_items[0]->final_price,2), 2, '.', '') }}</td>
                         <td class="mein-font-14 text-right"><u>{{ $po_items[0]->final_price }}</u></td>
                     </tr>
-                   @endif
+                   {{-- @endif --}}
                 </tbody>
             </table>
         </div>

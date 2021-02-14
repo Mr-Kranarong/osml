@@ -425,6 +425,9 @@
             color: 'black'
         },
         createOrder: function(data, actions) {
+            @guest
+            verifyAddress();
+            @endguest
             ajaxfinalize();
             return actions.order.create({
                 purchase_units: [{
@@ -436,17 +439,29 @@
         },
         onApprove: function(data, actions) {
             return actions.order.capture().then(function() {
+                @auth
                 $.ajax({
                     type:'post',
                     url:"{{route('coupon.use')}}",
                     data:{"_token":"{{csrf_token()}}","coupon": $('#couponBox').get(0).value},
                     success:function(data){}
                 });
+                @endauth
                 window.location = "cart/transaction/"+data.orderID;
             });
         },
         onCancel:function(data){
 
+        },
+        onInit: function(data, actions) {
+            $('#guest_address').change(function() {
+                if (verifyAddress()) {
+                actions.enable();
+                } else {
+                actions.disable();
+                }
+            });
+            verifyAddress();
         }
     }).render('#paypal-checkout-button');
 </script>
@@ -545,6 +560,12 @@
                 console.log(data.valid)
             }
         });
+    }
+    function verifyAddress(){
+        var guestaddress = $('#guest_address').val();
+        if (guestaddress) {
+            return true
+        }
     }
 @endguest
 </script>

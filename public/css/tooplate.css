@@ -3,14 +3,14 @@
 Template 2108 Dashboard
 
 http://www.tooplate.com/view/2108-dashboard
-	
+
 
 COLOR CODES
 
   Dark Gray: #656565
   Light Gray: #E6E6E6
   Blue: #0062BB
-  
+
 */
 
 html {
@@ -23,7 +23,7 @@ body {
 }
 
 body {
-  background-image: url(../img/spaceearth.jpg);
+  background-image: url(../img/spaceglass.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

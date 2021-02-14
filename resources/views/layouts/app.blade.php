@@ -38,7 +38,7 @@
                             {{-- <i class="fas fa-3x fa-tachometer-alt tm-site-icon"></i>
                             --}}
                             <img src="https://i.gifer.com/H0be.gif" style="max-width: 15%;width:fit-content;" alt="">
-                            <h1 class="tm-site-title mb-0" style="width:fit-content">{{ Config::get('app.name') }}</h1>
+                            <h1 class="tm-site-title mb-0" style="width:fit-content">{{App\Settings::where('option','store_name')->value('value')}} </h1>
                         </a>
                         <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -84,7 +84,7 @@
 
                                     @if (Auth::user()->hasAccess())
                                         <li class="nav-item {{ Request::is('inquir*') ? 'active' : '' }}">
-                                            <a class="nav-link" href="#">{{ __('text.Inquiries') }}</a>
+                                            <a class="nav-link" href="{{ route('question.index') }}">{{ __('text.Inquiries') }}</a>
                                         </li>
                                         <li class="nav-item {{ Request::is('statistic*') ? 'active' : '' }}">
                                             <a class="nav-link" href="#">{{ __('text.Statistics') }}</a>
@@ -158,14 +158,14 @@
                     <div class="row tm-bg-black rounded">
                         <p class="d-inline-block text-white py-2 px-4 pr-5 col-md-6 col-xs-12">
                             {{ __('text.Address') }} <br>
-                            123/15 Something road, Basmic ASD, sdadp aldw adwad,a wddwalk awd, 1231415 <br>
-                            Tel. 05618508, Email shite.store@toilet.shop
+                            {{App\Settings::where('option','store_address')->value('value')}} <br>
+                            {{ __('text.Tel') }}. {{App\Settings::where('option','store_telephone')->value('value')}}, {{ __('text.Email') }} {{App\Settings::where('option','store_email')->value('value')}}
                         </p>
                         <p class="d-inline-block text-white py-2 px-4 col-md-6 col-xs-12 pl-5 my-auto text-right">
                             {{ __('text.Language') }} <a href="{{ url('lang/en') }}">EN</a> | <a
                                 href="{{ url('lang/th') }}">TH</a> <br>
                             Copyright &copy; {{ \Carbon\Carbon::now()->year }}
-                            {{ Config::get('app.name') }} <br>
+                            {{App\Settings::where('option','store_name')->value('value')}}  <br>
                         </p>
                     </div>
                 </div>
