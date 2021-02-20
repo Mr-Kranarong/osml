@@ -53,7 +53,7 @@
                                                     <input type="checkbox" aria-label="Checkbox" name="chk_id[]"
                                                         class="chkbox" value="{{ $product->id }}">
                                                 </th>
-                                                <td class="tm-product-name">{{ $product->name }}</td>
+                                                <td class="tm-product-name"><a href="{{route('product.view',$product->id)}}" class="text-nowrap">{{$product->name}}</a></td>
                                                 <td class="text-center">{{ $product->stock_amount }}</td>
                                                 <td class="text-center">{{ $product->price }}</td>
                                                 <td><a href="{{ route('product.edit', $product) }}"><i

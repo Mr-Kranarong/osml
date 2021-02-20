@@ -15,12 +15,21 @@ use Illuminate\Support\Facades\Route;
 
 //ADMIN
 Route::middleware(['admin'])->group(function(){
+    Route::put('/settings/{setting}', 'SettingsController@update')->name('settings.update');
+    Route::get('/settings', 'SettingsController@index')->name('settings.index');
+
     Route::delete('/inquiry', 'ProductQuestionController@delete')->name('question.delete');
     Route::post('/inquiry', 'ProductQuestionController@answer')->name('question.answer');
     Route::get('/inquiry', 'ProductQuestionController@index')->name('question.index');
 
     Route::post('/order/refunded', 'PurchaseOrderController@refunded')->name('po.refunded');
     Route::post('/order/processed', 'PurchaseOrderController@processed')->name('po.processed');
+
+    Route::get('/promotion', 'ProductPromotionController@index')->name('product.promotion.index');
+    Route::post('/promotion', 'ProductPromotionController@store')->name('product.promotion.store');
+    Route::delete('/promotion', 'ProductPromotionController@delete')->name('product.promotion.delete');
+    Route::get('/promotion/apriori', 'ProductPromotionController@apriori')->name('product.promotion.apriori');
+    Route::get('/promotion/{product}', 'ProductPromotionController@create')->name('product.promotion.create');
 
     Route::post('/product/category/create', 'ProductController@category_create')->name('product.category.create');
     Route::delete('/product/category/{category}', 'ProductController@category_delete')->name('product.category.delete');
@@ -61,6 +70,8 @@ Route::middleware(['auth'])->group(function(){
 
     Route::delete('/favorite/ajax', 'FavoriteController@remove')->name('favorite.remove');
     Route::post('/favorite/ajax', 'FavoriteController@add')->name('favorite.add');
+    Route::delete('/favorite', 'FavoriteController@delete')->name('favorite.delete');
+    Route::get('/favorite', 'FavoriteController@index')->name('favorite.index');
 });
 
 //GUEST
@@ -76,6 +87,7 @@ Route::get('/cart/finalize', 'CartController@finalize')->name('cart.finalize');
 Route::get('/cart/delete/{chk_id}', 'CartController@remove')->name('cart.remove_single');
 Route::put('/cart', 'CartController@update')->name('cart.update');
 Route::delete('/cart', 'CartController@remove')->name('cart.remove');
+Route::post('/cart/bundle', 'CartController@bundle')->name('cart.bundle');
 Route::post('/cart', 'CartController@add')->name('cart.add');
 Route::get('/cart', 'CartController@index')->name('cart.index');
 

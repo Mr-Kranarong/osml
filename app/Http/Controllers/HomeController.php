@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\Product_Category;
+use App\Product_Promotion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +37,8 @@ class HomeController extends Controller
         return view('home', [
             'products' => $product,
             'total' => Product::all()->count(),
-            'categories' => Product_Category::all()
+            'categories' => Product_Category::all(),
+            'promotion' => Product_Promotion::all()
         ]);
     }
 
@@ -52,7 +54,7 @@ class HomeController extends Controller
         if($request->rating) $product->where('rating', '>=', (float) $request->rating); //BUUUUUUUUUUUUUUUUUUUUUUG
         if($request->min_price) $product->where('price','>=',$request->min_price);
         if($request->max_price) $product->where('price','<=',$request->max_price);
-        
+
         return view('home', [
             'products' => $product->paginate(12),
             'total' => $product->count(),

@@ -119,5 +119,17 @@ return [
     'Date' => 'วันที่',
     'Member' => 'สมาชิก',
     'SubmitAnswer' => 'ยืนยันคำตอบ',
-    'DeleteQuestion' => 'ลบคำถาม'
+    'DeleteQuestion' => 'ลบคำถาม',
+    'Wishlist' => 'รายการที่สนใจ',
+    'CreatePromotion' => 'จับคู่โปรโมชั่น',
+    'ProductRecommendation' => 'สินค้าที่เหมาะสำหรับจัดโปรโมชั่น',
+    'NewTotal' => 'ราคารวมใหม่',
+    'Discount' => 'ส่วนลด',
+    'PromotionName' => 'ชื่อโปรโมชั่น',
+    'PromotionExpireDate' => 'วันสิ้นสุดโปร',
+    'UpdateCoupon' => 'แก้ไขคูปอง',
+    'SearchOption' => 'ค้นหาตัวเลือก',
+    'Option' => 'ตัวเลือก',
+    'Value' => 'ค่า',
+    'UpdateOption' => 'แก้ไขตัวเลือก'
 ];

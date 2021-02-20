@@ -57,8 +57,8 @@ class CouponController extends Controller
             'expire_date' => ['date','nullable'],
             'code' => ['max:20','min:1'],
             'discount_type' => ['required'],
-            'discount_percentage' => ['required_if:discount_type,0','integer','between:1,100'],
-            'discount_amount' => ['required_if:discount_type,1','integer'],
+            'discount_percentage' => ['required_if:discount_type,0','numeric','between:1,100'],
+            'discount_amount' => ['required_if:discount_type,1','numeric'],
             'category_condition' => ['nullable'],
             'category_id' => ['required_with:category_condition'],
             'min_condition' => ['nullable'],
@@ -89,6 +89,7 @@ class CouponController extends Controller
             $rem[] = 'max_total_price';
         }
         $rem[] = 'max_condition';
+
         $rem[] = '_token';
         $rem[] = '_method';
 

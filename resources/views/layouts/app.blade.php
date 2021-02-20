@@ -69,7 +69,7 @@
                                                 <a class="dropdown-item {{ Request::is('product*') ? 'active' : '' }}"
                                                     href="{{ route('product.index') }}">{{ __('text.ProductManagement') }}</a>
                                                 <a class="dropdown-item {{ Request::is('promotion*') ? 'active' : '' }}"
-                                                    href="#">{{ __('text.PromotionPairing') }}</a>
+                                                    href="{{ route('product.promotion.index') }}">{{ __('text.PromotionPairing') }}</a>
                                                 <a class="dropdown-item {{ Request::is('coupon*') ? 'active' : '' }}"
                                                     href="{{ route('coupon.index') }}">{{ __('text.Coupon') }}</a>
                                             </div>
@@ -82,6 +82,12 @@
                                         <a class="nav-link" href="{{ route('po.index') }}">{{ __('text.Orders') }}</a>
                                     </li>
 
+                                    @if (!Auth::user()->hasAccess())
+                                    <li class="nav-item {{ Request::is('favorite*') ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('favorite.index') }}">{{ __('text.Wishlist') }}</a>
+                                    </li>
+                                    @endif
+
                                     @if (Auth::user()->hasAccess())
                                         <li class="nav-item {{ Request::is('inquir*') ? 'active' : '' }}">
                                             <a class="nav-link" href="{{ route('question.index') }}">{{ __('text.Inquiries') }}</a>
@@ -90,7 +96,7 @@
                                             <a class="nav-link" href="#">{{ __('text.Statistics') }}</a>
                                         </li>
                                         <li class="nav-item {{ Request::is('setting*') ? 'active' : '' }}">
-                                            <a class="nav-link" href="#">{{ __('text.Settings') }}</a>
+                                            <a class="nav-link" href="{{ route('settings.index') }}">{{ __('text.Settings') }}</a>
                                         </li>
                                     @endif
                                 @endauth

@@ -248,6 +248,7 @@
                                             class="chkbox" value="{{$product->id}}">
                                         </th>
                                         <td class="text-center" rowspan="2">
+
                                             @if ($product->image_img)
                                             <div id="product-{{$product->id}}" class="carousel slide" data-ride="carousel">
                                                 <ol class="carousel-indicators">
@@ -283,6 +284,7 @@
                                             </div>
                                             @endif
                                             @if (!$product->image_img) <img class="d-block home-product-gallery-image"> @endif
+
                                         </td>
                                         <td class="tm-product-name" colspan="2"><a href="{{route('product.view',$product)}}" style="color:black">{{$product->name}}</a></td>
                                         <td rowspan="2"  class="align-middle text-center">
@@ -509,7 +511,7 @@
             url:"{{route('cart.finalize')}}",
             data:{"_token":"{{csrf_token()}}"},
             success:function(data){
-                $('#currentValue').text(data.total);
+                $('#currentValue').text((data.total).toFixed(2));
                 $('#previousValue').text(data.prevtotal);
                 $('#discountPercent').text((100-((data.total/data.prevtotal)*100)).toFixed(2));
                 $('#promotionDetails').empty();

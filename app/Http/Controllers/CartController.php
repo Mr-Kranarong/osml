@@ -33,9 +33,9 @@ class CartController extends Controller
             $product_id_a = Cart::where('user_id', Auth::user()->id)->pluck('product_id')->toArray();
         }
 
-        if($product_id_a != null){ 
+        if($product_id_a != null){
             //FIND RELEVANT PRODUCTS
-            $recommends = $this->apriori_recommendation($product_id_a); 
+            $recommends = $this->apriori_recommendation($product_id_a);
             if($recommends == null) goto end;
             foreach($recommends as $array){
                 $product_id_b = array();
@@ -44,13 +44,13 @@ class CartController extends Controller
                 }
             }
             $recommends = Product::find($product_id_b);
-        }else{ 
+        }else{
             $recommends = '';
         };
         end:
 
 
-        
+
         return view('cart', [
             'recommends' => $recommends
         ]);
@@ -71,6 +71,47 @@ class CartController extends Controller
             }
             Session::push('cart', array('product_id' => (int) request()->product_id, 'amount' => (int) request()->buy_amount ));
             Session::save();
+            return redirect(route('cart.index'));
+        }else{
+            //USER
+            $current = Cart::where('user_id', Auth::user()->id)->where('product_id',request()->product_id)->first();
+            if($current){
+                $current->update([
+                    'amount' => $current->amount+request()->buy_amount
+                ]);
+            }else{
+                $cart = new Cart();
+                $cart->user_id = Auth::user()->id;
+                $cart->product_id = request()->product_id;
+                $cart->amount = request()->buy_amount;
+                $cart->save();
+            }
+        }
+        return redirect(route('cart.index'));
+    }
+    public function bundle(){
+        if(!Auth::check()){
+            //GUEST
+            //$product_id_a = Cart::where('user_id', Auth::user()->id)->pluck('product_id')->toArray();
+            $bundle_array = Product::where('promotion_id', request()->promotion_id)->pluck('id')->toArray();
+            $added = [];
+            foreach ($bundle_array as $product_id) {
+                $cart = Session::get('cart',[]);
+                foreach($cart as $id => $item) {
+                    if ($item['product_id'] == $product_id){
+                        $item['amount'] +=  1;
+                        Session::put('cart.'.$id, $item);
+                        Session::save();
+                        $added[] = $product_id;
+                        break;
+                    }
+                }
+                if(!in_array($product_id,$added)){
+                    Session::push('cart', array('product_id' => (int) $product_id, 'amount' => 1 ));
+                    Session::save();
+                }
+            }
+
             return redirect(route('cart.index'));
         }else{
             //USER
@@ -199,7 +240,7 @@ class CartController extends Controller
                         }
                         $total += $promotion->discounted_price * $lowest;
                         $promotion_applied[] = array(
-                            'promotion_id' => $promotion->id, 
+                            'promotion_id' => $promotion->id,
                             'promotion_name' => $promotion->name,
                             'count' => $lowest,
                             'products' => $affected
@@ -275,7 +316,7 @@ class CartController extends Controller
                         }
                         $total += $promotion->discounted_price * $lowest;
                         $promotion_applied[] = array(
-                            'promotion_id' => $promotion->id, 
+                            'promotion_id' => $promotion->id,
                             'promotion_name' => $promotion->name,
                             'count' => $lowest,
                             'products' => $affected
@@ -323,7 +364,7 @@ class CartController extends Controller
         }
 
         return response()->json(array(
-            'total'=> $total, 
+            'total'=> $total,
             'prevtotal' => $prevtotal,
             'promotion_applied' => $promotion_applied,
             'coupon_status' => $coupon_status,
@@ -367,12 +408,12 @@ class CartController extends Controller
                             $new_po_item->payer_email = $email;
                             $new_po_item->guest_address = session()->get('address');
                             $new_po_item->save();
-                            
+
                             $update_product = Product::firstWhere('id',$item['product_id']);
                             $update_product->update([
                                 'stock_amount' => $update_product->stock_amount - $item['amount']
                             ]);
-                            
+
                             Session::forget('cart.'.$id);
                         }
                     }else{
@@ -463,12 +504,12 @@ class CartController extends Controller
 
     //VALIDATION
     protected function coupon_validation(){
-        $coupon = Coupon::firstWhere('code', request()->session()->get('coupon'));
+        $coupon = Coupon::where('code', request()->session()->get('coupon'))->where('expire_date','>=',date('Y-m-d').' 00:00:00')->first();
         $valid = false;
         if($coupon) {
             $used_coupon = Used_Coupon::where('user_id',Auth::user()->id)->where('coupon_id', $coupon->id)->first();
             if(!$used_coupon) $valid = true;
         }
-        return ($valid) ? true : false; 
+        return ($valid) ? true : false;
     }
 }

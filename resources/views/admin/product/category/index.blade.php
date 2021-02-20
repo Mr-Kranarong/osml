@@ -34,7 +34,7 @@
                                     <td><a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#category-modal-{{$category->id}}"><i class="fas fa-pencil-alt text-dark"></i></a></td>
 
                                     <td><a href="{{route('product.category.delete',$category)}}" onclick="event.preventDefault();document.getElementById('category-delete-{{$category->id}}').submit()"><i class="fas fa-trash-alt text-dark"></i></a></td>
-                                    
+
                                     {{-- HIDDEN FORM FOR DELETE BUTTON --}}
                                     <form id="category-delete-{{$category->id}}" action="{{route('product.category.delete',$category)}}"
                                         method="POST" style="display: none;">
@@ -57,13 +57,13 @@
                                                 @method('put')
 
                                                 <div class="modal-body">
-                                                
+
                                                     <div class="form-group row">
                                                         <label for="name" class="col-md-5 col-form-label text-md-right">{{ __('text.CategoryName') }}</label>
-                            
+
                                                         <div class="col-md-7">
                                                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $category->name }}" required autocomplete="name" autofocus>
-                            
+
                                                             @error('name')
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <strong>{{ $message }}</strong>
@@ -113,7 +113,7 @@
             @csrf
 
             <div class="modal-body">
-            
+
                 <div class="form-group row">
                     <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('text.CategoryName') }}</label>
                     <div class="col-md-7">

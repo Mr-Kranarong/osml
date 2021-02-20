@@ -118,5 +118,17 @@ return [
     'Date' => 'Date',
     'Member' => 'Member',
     'SubmitAnswer' => 'Submit Answer',
-    'DeleteQuestion' => 'Delete Question'
+    'DeleteQuestion' => 'Delete Question',
+    'Wishlist' => 'Wishlist',
+    'CreatePromotion' => 'Create Promotion',
+    'ProductRecommendation' => 'Product Recommendation',
+    'NewTotal' => 'New Total',
+    'Discount' => 'Discount',
+    'PromotionName' => 'Promotion Name',
+    'PromotionExpireDate' => 'Promotion Expire Date',
+    'UpdateCoupon' => 'Edit Coupon',
+    'SearchOption' => 'Search Option',
+    'Option' => 'Option',
+    'Value' => 'Value',
+    'UpdateOption' => 'Update Option'
 ];

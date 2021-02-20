@@ -150,7 +150,7 @@
                                 <label for="percentage" class="col-form-label">{{ __('text.ByPercentageOf') }}</label>
                                 <input id="discount_percentage{{$coupon->id}}" type="number" class="" name="discount_percentage"
                             required autocomplete="discount_percentage" max="100" min="0" value="{{$coupon->discount_percentage}}" autofocus @if (!$coupon->discount_percentage)
-                            disabled
+                            disabled=""
                         @endif>
                                 @error('discount_percentage')
                                 <span class="invalid-feedback" role="alert">
@@ -165,7 +165,7 @@
                                 <label for="amount" class="col-form-label">{{ __('text.ByTotalSumOf') }}</label>
                                 <input id="discount_amount{{$coupon->id}}" type="number" class="" min="0" name="discount_amount"
                                     required autocomplete="discount_amount" value="{{$coupon->discount_amount}}" autofocus @if (!$coupon->discount_amount)
-                                    disabled
+                                    disabled=""
                                 @endif>
                                 @error('discount_amount')
                                 <span class="invalid-feedback" role="alert">
@@ -427,7 +427,7 @@
     }
 
     $(document).ready(function() {
-        
+
     });
 
     function couponDefaultDiscount(id) {
