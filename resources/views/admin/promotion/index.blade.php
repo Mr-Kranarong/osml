@@ -14,6 +14,7 @@
                     {{__('text.Promotion')}}
                 </div>
                 <div class="card-body">
+                    @if($promotion-> first()git)
                     <?php $lastID = ''; ?>
                     @foreach ($promotion as $item)
                     @if ($item->id == $lastID)
@@ -99,6 +100,7 @@
                     <br>
                     @endforeach
                 </div>
+                @endif
             </div>
         </div>
     </div>
