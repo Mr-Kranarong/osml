@@ -14,7 +14,6 @@
                     {{__('text.Promotion')}}
                 </div>
                 <div class="card-body">
-                    @if($promotion-> first())
                     <?php $lastID = ''; ?>
                     @foreach ($promotion as $item)
                     @if ($item->id == $lastID)
@@ -34,6 +33,7 @@
                             <div class="col d-flex flex-row flex-wrap">
                                 <?php $promotion_product = App\Product::where('promotion_id',"$item->id")->get(); ?>
                                 <?php $fullprice = 0; ?>
+                                @if($promotion-> first())
                                 @foreach ($promotion_product as $product)
                                 <div class="mein-card text-center" style="background-color: black">
                                     @if ($product->image_img)
@@ -75,12 +75,14 @@
                                 </div>
                                 <?php $fullprice = $fullprice+$product->price; ?>
                                 @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="row">
                             <div class="col text-center">
                                 <p class="product-details-text m-0"><u>{{__('text.TotalPrice')}}</u></p>
                                 <p class="bold h2 m-0">{{$item->discounted_price}}</p>
+                                <?php if($fullprice == 0) $fullprice = 1; ?>
                                 <span>{{((round((100-(($item->discounted_price/$fullprice)*100)),2))*-1)}}% </span>
                                 <s class="m-0 p-0">({{$fullprice}})</s>
                             </div>
@@ -100,7 +102,6 @@
                     <br>
                     @endforeach
                 </div>
-                @endif
             </div>
         </div>
     </div>
