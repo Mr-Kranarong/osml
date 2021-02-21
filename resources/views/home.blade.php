@@ -143,7 +143,7 @@
                                             <form class="p-0" action="{{ route('cart.bundle', ['promotion_id' => $item->id]) }}" method="POST">
                                                 @csrf
                                                 <button class="btn btn-primary mein-width-100 mein-height-100 p-1">
-                                                   <span class="text-nowrap">Add to Cart</span><i class="fa fa-cart-arrow-down"></i>
+                                                   <span class="text-nowrap">{{__('text.AddToCart')}}</span><i class="fa fa-cart-arrow-down"></i>
                                                 </button>
                                             </form>
                                         </div>

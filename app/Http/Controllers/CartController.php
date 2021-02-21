@@ -115,17 +115,22 @@ class CartController extends Controller
             return redirect(route('cart.index'));
         }else{
             //USER
-            $current = Cart::where('user_id', Auth::user()->id)->where('product_id',request()->product_id)->first();
-            if($current){
-                $current->update([
-                    'amount' => $current->amount+request()->buy_amount
-                ]);
-            }else{
-                $cart = new Cart();
-                $cart->user_id = Auth::user()->id;
-                $cart->product_id = request()->product_id;
-                $cart->amount = request()->buy_amount;
-                $cart->save();
+            $bundle_array = Product::where('promotion_id', request()->promotion_id)->pluck('id')->toArray();
+
+
+            foreach ($bundle_array as $product_id) {
+                $current = Cart::where('user_id', Auth::user()->id)->where('product_id',$product_id)->first();
+                if($current){
+                    $current->update([
+                        'amount' => $current->amount+1
+                    ]);
+                }else{
+                    $cart = new Cart();
+                    $cart->user_id = Auth::user()->id;
+                    $cart->product_id = $product_id;
+                    $cart->amount = 1;
+                    $cart->save();
+                }
             }
         }
         return redirect(route('cart.index'));
