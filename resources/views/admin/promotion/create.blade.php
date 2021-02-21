@@ -65,7 +65,7 @@
                                     <div class="row">
                                         <div class="col text-center">
                                             <p class="product-details-text"><u>{{__('text.NewTotal')}}</u></p>
-                                            <input type="number" class="bold form-control form-control-sm" id="totalnew" value="{{$product->price}}" onchange="setTotal();document.getElementById('promotiontotal').value = this.value;">
+                                            <input type="number" class="bold form-control form-control-sm" id="totalnew" value="{{$product->price}}" onchange="setTotal();document.getElementById('promotiontotal').value = this.value;" required>
                                         </div>
                                         <div class="col text-center">
                                             <p class="product-details-text"><u>{{__('text.Discount')}}</u></p>
@@ -75,11 +75,11 @@
                                     <div class="row">
                                         <div class="col text-center">
                                             <p class="product-details-text"><u>{{__('text.PromotionName')}}</u></p>
-                                            <input type="text" class="bold form-control form-control-sm" id="proname" value="" onchange="setTotal();document.getElementById('promotionname').value = this.value;">
+                                            <input type="text" class="bold form-control form-control-sm" id="proname" value="" onchange="setTotal();document.getElementById('promotionname').value = this.value;" required>
                                         </div>
                                         <div class="col text-center">
                                             <p class="product-details-text"><u>{{__('text.PromotionExpireDate')}}</u></p>
-                                            <input type="date" class="bold form-control form-control-sm" id="proname" value="" onchange="setTotal();document.getElementById('promotiondate').value = this.value;">
+                                            <input type="date" class="bold form-control form-control-sm" id="proname" value="" onchange="setTotal();document.getElementById('promotiondate').value = this.value;" required>
                                         </div>
                                     </div>
                                     <div class="row">

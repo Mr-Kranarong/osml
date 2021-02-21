@@ -130,5 +130,11 @@ return [
     'SearchOption' => 'Search Option',
     'Option' => 'Option',
     'Value' => 'Value',
-    'UpdateOption' => 'Update Option'
+    'UpdateOption' => 'Update Option',
+    'MonthlyProfit' => 'Monthly Profit',
+    'TopViews' => 'Most Viewed Product',
+    'TopWishlists' => 'Most Wishlisted Product',
+    'TopSales' => 'Most Sold Product',
+    'ProductEachCategories' => 'Categories of Products',
+    'LowStocks' => 'Products Low In Stocks'
 ];

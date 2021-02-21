@@ -93,7 +93,7 @@
                                             <a class="nav-link" href="{{ route('question.index') }}">{{ __('text.Inquiries') }}</a>
                                         </li>
                                         <li class="nav-item {{ Request::is('statistic*') ? 'active' : '' }}">
-                                            <a class="nav-link" href="#">{{ __('text.Statistics') }}</a>
+                                            <a class="nav-link" href="{{ route('statistic.index') }}">{{ __('text.Statistics') }}</a>
                                         </li>
                                         <li class="nav-item {{ Request::is('setting*') ? 'active' : '' }}">
                                             <a class="nav-link" href="{{ route('settings.index') }}">{{ __('text.Settings') }}</a>

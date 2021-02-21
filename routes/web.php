@@ -15,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 
 //ADMIN
 Route::middleware(['admin'])->group(function(){
+    Route::post('/statistic/stocks', 'StatisticController@getLowStock')->name('statistic.stocks');
+    Route::post('/statistic/categories', 'StatisticController@getCategoryCount')->name('statistic.categories');
+    Route::post('/statistic/sales', 'StatisticController@getTopSold')->name('statistic.sales');
+    Route::post('/statistic/wishlists', 'StatisticController@getTopWishlist')->name('statistic.wishlists');
+    Route::post('/statistic/views', 'StatisticController@getTopView')->name('statistic.views');
+    Route::post('/statistic/profit', 'StatisticController@getSalesProfit')->name('statistic.profit');
+    Route::get('/statistic', 'StatisticController@index')->name('statistic.index');
+
     Route::put('/settings/{setting}', 'SettingsController@update')->name('settings.update');
     Route::get('/settings', 'SettingsController@index')->name('settings.index');
 

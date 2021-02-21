@@ -140,12 +140,14 @@
                                             <p class="bold h3 m-0">{{$item->discounted_price}}</p>
                                             <span>{{((round((100-(($item->discounted_price/$fullprice)*100)),2))*-1)}}% </span>
                                             <s class="m-0 p-0">({{$fullprice}})</s>
+                                            @if (is_null(Auth::user()) || !Auth::user()->hasAccess())
                                             <form class="p-0" action="{{ route('cart.bundle', ['promotion_id' => $item->id]) }}" method="POST">
                                                 @csrf
                                                 <button class="btn btn-primary mein-width-100 mein-height-100 p-1">
                                                    <span class="text-nowrap">{{__('text.AddToCart')}}</span><i class="fa fa-cart-arrow-down"></i>
                                                 </button>
                                             </form>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
