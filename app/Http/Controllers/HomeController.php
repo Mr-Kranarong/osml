@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Coupon;
 use App\Product;
 use App\Product_Category;
 use App\Product_Promotion;
@@ -30,6 +32,8 @@ class HomeController extends Controller
     //VIEW
     public function index()
     {
+        $this->removeExpire();
+
         $product = Product::leftJoin('product_review','product_review.product_id','=','product.id')
             ->select('product.*',DB::raw('AVG(product_review.rating) as rating'))
             ->groupBy('product.id')->orderByRaw("stock_amount=0, created_at DESC")->paginate(12);
@@ -72,5 +76,14 @@ class HomeController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function removeExpire(){
+        $today = Carbon::now();
+        $expired_coupon = Coupon::where('expire_date','<', $today->format('Y-m-d'));
+        $expired_promotion = Product_Promotion::where('expire_date','<', $today->format('Y-m-d'));
+
+        $expired_coupon->delete();
+        $expired_promotion->delete();
     }
 }

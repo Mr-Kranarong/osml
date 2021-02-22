@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Collection;
 use App\Coupon;
 use App\Product_Promotion;
 use Carbon\Carbon;
@@ -41,8 +42,8 @@ class ExpirationChecking extends Command
     public function handle()
     {
         $today = Carbon::now();
-        $expired_coupon = Coupon::where('expire_date','<', $today->format('Y-m-d'))->get();
-        $expired_promotion = Product_Promotion::where('expire_date','<', $today->format('Y-m-d'))->get();
+        $expired_coupon = Coupon::where('expire_date','<', $today->format('Y-m-d'));
+        $expired_promotion = Product_Promotion::where('expire_date','<', $today->format('Y-m-d'));
 
         $expired_coupon->delete();
         $expired_promotion->delete();

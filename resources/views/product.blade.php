@@ -114,7 +114,7 @@
                   </div>
                   @auth
                   <?php
-                        $canReview = App\Purchase_Order::where('product_id','like',"$product->id")->where('processed_status','=',"$product->id")->where('user_id','like',Auth::user()->id)->count();
+                        $canReview = App\Purchase_Order::where('product_id','like',"$product->id")->where('processed_status','=',"1")->where('user_id','like',Auth::user()->id)->count();
                         $hasReviewed = App\Product_Review::where('product_id','like',"$product->id")->where('user_id','like',Auth::user()->id)->count();
                   ?>
                   @if ($canReview > 0)
@@ -127,7 +127,6 @@
                     </div>
                     @endif
                   @endif
-
                   @endauth
                 </div>
                 <div class="card-body">

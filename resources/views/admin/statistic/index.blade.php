@@ -98,6 +98,9 @@
                    data: chartdata,
                    options: {
                         responsive: true,
+                        legend: {
+                            onClick: function(event, legendItem) {}
+                        }
                     }
             });
         });
@@ -131,6 +134,9 @@
                    data: chartdata,
                    options: {
                         responsive: true,
+                        legend: {
+                            onClick: function(event, legendItem) {}
+                        }
                     }
             });
         });
@@ -164,6 +170,9 @@
                    data: chartdata,
                    options: {
                         responsive: true,
+                        legend: {
+                            onClick: function(event, legendItem) {}
+                        }
                     }
             });
         });
@@ -197,6 +206,9 @@
                    data: chartdata,
                    options: {
                         responsive: true,
+                        legend: {
+                            onClick: function(event, legendItem) {}
+                        }
                     }
             });
         });
@@ -230,6 +242,9 @@
                    data: chartdata,
                    options: {
                         responsive: true,
+                        legend: {
+                            onClick: function(event, legendItem) {}
+                        }
                     }
             });
         });
@@ -263,6 +278,9 @@
                    data: chartdata,
                    options: {
                         responsive: true,
+                        legend: {
+                            onClick: function(event, legendItem) {}
+                        }
                     }
             });
         });
