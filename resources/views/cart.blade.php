@@ -454,16 +454,6 @@
         },
         onCancel:function(data){
 
-        },
-        onInit: function(data, actions) {
-            $('#guest_address').change(function() {
-                if (verifyAddress()) {
-                actions.enable();
-                } else {
-                actions.disable();
-                }
-            });
-            verifyAddress();
         }
     }).render('#paypal-checkout-button');
 </script>
