@@ -83,6 +83,15 @@ class HomeController extends Controller
         $expired_coupon = Coupon::where('expire_date','<', $today->format('Y-m-d'));
         $expired_promotion = Product_Promotion::where('expire_date','<', $today->format('Y-m-d'));
 
+        $x = $expired_promotion->get();
+
+        foreach($x as $y) {
+            $product_promotion = Product::where('promotion_id','like',$y->id);
+            $product_promotion->update([
+                'promotion_id' => null
+            ]);
+        }
+
         $expired_coupon->delete();
         $expired_promotion->delete();
     }
