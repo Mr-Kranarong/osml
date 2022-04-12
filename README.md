@@ -1,7 +1,7 @@
 Installation And Configuration
 
 1.	Install prerequisites software
-* GIT - https://git-scm.com/downloads
+* ~~GIT - https://git-scm.com/downloads~~
 * XAMP (MYSQL and PHP) - https://www.apachefriends.org/download.html
 * Composer - https://getcomposer.org
 * Laravel - https://laravel.com/docs/master/installation
